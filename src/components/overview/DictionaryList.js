@@ -9,14 +9,14 @@ const DictionaryListBlock = styled.div`
   overflow-y: auto;
 `;
 
-const DictionaryList = ({ dictionaries, handleDictionaryEdit, handleDictionaryDelete }) => {
+const DictionaryList = ({ dictionaries, handleDictionaryTitleEdit, handleDictionaryDelete }) => {
   return (
     <DictionaryListBlock>
       {dictionaries.map((dictionary) =>
         <DictionaryListItem
           key={dictionary.id}
           {...dictionary}
-          handleDictionaryEdit={handleDictionaryEdit}
+          // handleDictionaryTitleEdit={handleDictionaryTitleEdit}
           handleDictionaryDelete={handleDictionaryDelete}
         />)}
     </DictionaryListBlock>
@@ -27,9 +27,8 @@ DictionaryList.propTypes = {
   dictionaries: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    done: PropTypes.bool,
   })),
-  handleDictionaryEdit: PropTypes.func.isRequired,
+  // handleDictionaryTitleEdit: PropTypes.func.isRequired,
   handleDictionaryDelete: PropTypes.func.isRequired
 };
 

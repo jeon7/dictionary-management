@@ -4,38 +4,38 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 
 const StyledInsert = styled.div`
+  display: flex;
+  background: #495057;
+  input {
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: white;
+    &::placeholder {
+      color: #dee2e6;
+    }
+    flex: 1;
+  }
+  button{
+    background: none;
+    outline: none;
+    border: none;
+    background: #868e96;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.125rem;
     display: flex;
-    background: #495057;
-    input {
-      background: none;
-      outline: none;
-      border: none;
-      padding: 0.5rem;
-      font-size: 1.125rem;
-      line-height: 1.5;
-      color: white;
-      &::placeholder {
-        color: #dee2e6;
-      }
-      flex: 1;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+    &:hover {
+      background: #abd5bd;
     }
-    button{
-      background: none;
-      outline: none;
-      border: none;
-      background: #868e96;
-      color: white;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      font-size: 1.125rem;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      transition: 0.1s background ease-in;
-      &:hover {
-        background: #abd5bd;
-      }
-    }
+  }
 `;
 
 class DictionaryCreate extends Component {
@@ -64,7 +64,7 @@ class DictionaryCreate extends Component {
           value={this.state.value}
           onChange={(e) => this.handleChange(e.target.value)}
         />
-        <button type="button" onClick={this.createDictionary}>
+        <button onClick={this.createDictionary}>
           <MdAdd />
         </button>
       </StyledInsert>

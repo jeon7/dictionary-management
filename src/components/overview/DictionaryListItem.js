@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
@@ -8,6 +9,19 @@ const DictionaryListItemBlock = styled.div`
   display: flex;
   align-items: center;
   background: #495057;
+  /* Link{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #2d84ac;
+    cursor: pointer;
+    &:hover {
+     color: #7bb4ba;
+    }
+    & + & {
+      border-top: 1px solid #dee2e6;
+    }
+  } */
   &:nth-child(even) {
     background: #f8f9fa;
   }
@@ -19,10 +33,6 @@ const DictionaryListItemBlock = styled.div`
 const ItemTitle = styled.div`
   margin-left: 0.5rem;
   flex: 1;
-  cursor: pointer;
-  &:hover {
-    color: #046d7a;
-  }
 `;
 
 const RemoveBtn = styled.div`
@@ -41,22 +51,8 @@ const RemoveBtn = styled.div`
   }
 `;
 
-const EditBtn = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 1.5rem;
-  color: #2d84ac;
-  cursor: pointer;
-  &:hover {
-    color: #7bb4ba;
-  }
 
-  & + & {
-    border-top: 1px solid #dee2e6;
-  }
-`;
-
-const DictionaryListItem = ({ title, id, done, handleDictionaryEdit, handleDictionaryDelete }) => {
+const DictionaryListItem = ({ title, id, handleDictionaryTitleEdit, handleDictionaryDelete }) => {
   // TODO
   const onEdit = () => {
     // let willEdit = window.confirm('do you want to edit this dictionary?');
@@ -64,11 +60,9 @@ const DictionaryListItem = ({ title, id, done, handleDictionaryEdit, handleDicti
 
   return (
     <DictionaryListItemBlock>
-
       {/* TODO */}
-      <ItemTitle onClick={onEdit}> {title} </ItemTitle>
-      {/* TODO */}
-      <EditBtn onClick={(e) => handleDictionaryEdit(id, !done)}> <MdModeEdit /> </EditBtn>
+      <ItemTitle> {title} </ItemTitle>
+      <Link to={`/edit/${title}`}> <MdModeEdit /> </Link>
       <RemoveBtn onClick={() => handleDictionaryDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
     </DictionaryListItemBlock>
   );
@@ -77,8 +71,7 @@ const DictionaryListItem = ({ title, id, done, handleDictionaryEdit, handleDicti
 DictionaryListItem.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  done: PropTypes.bool,
-  handleDictionaryEdit: PropTypes.func.isRequired,
+  // handleDictionaryTitleEdit: PropTypes.func.isRequired,
   handleDictionaryDelete: PropTypes.func.isRequired
 };
 
