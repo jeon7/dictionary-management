@@ -52,15 +52,9 @@ const RemoveBtn = styled.div`
 `;
 
 
-const DictionaryListItem = ({ title, id, handleDictionaryTitleEdit, handleDictionaryDelete }) => {
-  // TODO
-  const onEdit = () => {
-    // let willEdit = window.confirm('do you want to edit this dictionary?');
-  }
-
+const DictionaryListItem = ({ title, id, handleDictionaryDelete }) => {
   return (
     <DictionaryListItemBlock>
-      {/* TODO */}
       <ItemTitle> {title} </ItemTitle>
       <Link to={`/edit/${title}`}> <MdModeEdit /> </Link>
       <RemoveBtn onClick={() => handleDictionaryDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
@@ -71,7 +65,6 @@ const DictionaryListItem = ({ title, id, handleDictionaryTitleEdit, handleDictio
 DictionaryListItem.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  // handleDictionaryTitleEdit: PropTypes.func.isRequired,
   handleDictionaryDelete: PropTypes.func.isRequired
 };
 

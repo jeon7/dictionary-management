@@ -10,11 +10,10 @@ const RecordListBlock = styled.div`
 `;
 
 const RecordList = ({ records,
-  dictionary_title,
+  selected_dictionary_title,
   // handleRecordUpdate, 
   handleRecordDelete }) => {
-  let dictionaryRecords = records.filter(record => record.dictionary_title === dictionary_title);
-
+  let dictionaryRecords = records.filter(record => record.dictionary_title === selected_dictionary_title);
 
   return (
     <RecordListBlock>

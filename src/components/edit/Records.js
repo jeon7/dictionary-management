@@ -22,9 +22,6 @@ class Records extends Component {
   }
 
   handleRecordAdd(dictionary_title, domain, range) {
-    // test
-    console.log('handleRecordAdd(..)진입 ');
-
     const record = {
       dictionary_title,
       domain,
@@ -70,17 +67,18 @@ class Records extends Component {
     console.log("match.params: ");
     console.log(this.props.match.params.dictionary_title);
 
-    let dictionary_title = this.props.match.params.dictionary_title;
+    let selected_dictionary_title = this.props.match.params.dictionary_title;
 
     return (
-      <RecordsTemplate dictionary_title={dictionary_title}>
+      <RecordsTemplate selected_dictionary_title={selected_dictionary_title}>
         <RecordAdd
+          records={this.state.records}
+          selected_dictionary_title={selected_dictionary_title}
           handleRecordAdd={this.handleRecordAdd}
-          dictionary_title={dictionary_title}
         />
         <RecordList
           records={this.state.records}
-          dictionary_title={dictionary_title}
+          selected_dictionary_title={selected_dictionary_title}
           // handleRecordUpdate={this.handleRecordUpdate}
           handleRecordDelete={this.handleRecordDelete}
         />

@@ -55,10 +55,10 @@ const CloseBtn = styled.button`
   }
 `;
 
-const RecordsTemplate = ({ dictionary_title, children }) => {
+const RecordsTemplate = ({ selected_dictionary_title, children }) => {
   return (
     <RecordsTemplateBlock>
-      <Title> {dictionary_title} </Title>
+      <Title> {selected_dictionary_title} </Title>
       <Attribute>
         <h2>Domain</h2>
         <h2>Range</h2>

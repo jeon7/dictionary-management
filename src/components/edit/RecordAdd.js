@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
+import Records from './Records';
 
 const StyledInsert = styled.div`
     display: flex;
@@ -43,13 +44,14 @@ class RecordAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dictionary_title: this.props.dictionary_title,
+      dictionary_title: this.props.selected_dictionary_title,
       domain: '',
       range: '',
     };
     this.recordAdd = this.recordAdd.bind(this);
     this.handleDomainChange = this.handleDomainChange.bind(this);
     this.handleRangeChange = this.handleRangeChange.bind(this);
+
   }
 
   handleDomainChange(newDomain) {
@@ -61,23 +63,47 @@ class RecordAdd extends Component {
   }
 
   recordAdd() {
-    this.props.handleRecordAdd(
-      this.state.dictionary_title,
-      this.state.domain,
-      this.state.range);
+    // both domain and range must be given
+    if (this.state.dictionary_title && this.state.domain && this.state.range) {
 
-    // test
-    console.log('state: ');
-    console.log(this.state);
+      let isDuplicates = this.checkDuplicates(this.state.domain, this.state.range);
+      let isForks = this.checkForks(this.state.domain, this.state.range);
+      let isCycles = this.checkCycles(this.state.domain, this.state.range);
+      let isChains = this.checkChains(this.state.domain, this.state.range);
 
-    this.setState({
-      domain: '',
-      range: '',
-    });
-    // test
-    console.log('last state: ');
-    console.log(this.state);
+      this.props.handleRecordAdd(
+        this.state.dictionary_title,
+        this.state.domain,
+        this.state.range);
+
+      this.setState({
+        domain: '',
+        range: '',
+      });
+    }
   }
+
+  checkDuplicates(newDomain, newRange) {
+    //test
+    console.info('RecordAdd constructor: JSON.stringify(this.props): ' + JSON.stringify(this.props));
+    // this.props.
+    // if(newDomain )
+    return true;
+  }
+
+  checkForks(newDomain, newRange) {
+    return true;
+  }
+
+  checkCycles(newDomain, newRange) {
+    return true;
+  }
+
+  checkChains(newDomain, newRange) {
+    return true;
+  }
+
+
 
   render() {
     return (

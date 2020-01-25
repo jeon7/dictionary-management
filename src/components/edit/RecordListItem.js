@@ -52,7 +52,7 @@ const EditBtn = styled.div`
   }
 `;
 
-const RecordListItem = ({ id, dictionary_title, domain, range,
+const RecordListItem = ({ id, selected_dictionary_title, domain, range,
   // handleRecordUpdate, 
   handleRecordDelete }) => {
   // TODO

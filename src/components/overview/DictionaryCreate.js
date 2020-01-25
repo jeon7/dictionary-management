@@ -51,8 +51,11 @@ class DictionaryCreate extends Component {
   }
 
   createDictionary() {
-    this.props.handleDictionaryCreate(this.state.value);
-    this.setState({ value: '' });
+    // dictionary name must be given
+    if (this.state.value) {
+      this.props.handleDictionaryCreate(this.state.value);
+      this.setState({ value: '' });
+    }
   }
 
   render() {
