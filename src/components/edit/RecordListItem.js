@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
+import ModalRecordUpdate from './ModalRecordUpdate';
 
 const RecordListItemBlock = styled.div`
   padding: 1rem;
@@ -52,7 +53,54 @@ const EditBtn = styled.div`
   }
 `;
 
+const StyledInsert = styled.div`
+    display: flex;
+    padding: 0rem 1rem 1rem 1rem;
+    input {
+      background: none;
+      outline: none;
+      border: none;
+      padding: 0.5rem;
+      font-size: 1rem;
+      line-height: 1.125;
+      color: black;
+      border: 0.5px solid darkgray;
+      &::placeholder {
+        color: darkgray;
+      }
+      flex: 1;
+    }
+`;
+
 const RecordListItem = ({ id, domain, range, handleRecordUpdate, handleRecordDelete }) => {
+
+  const [modal, setModal] = useState(false);
+  const [domainUpdated, setDomainUpdated] = useState('');
+  const [rangeUpdated, setRangeUpdated] = useState('');
+
+  const onUpdateClick = () => {
+    setModal(true);
+  }
+
+  // button in modal window for update  
+  const onCancel = () => {
+    setModal(false);
+    setDomainUpdated('');
+    setRangeUpdated('');
+  };
+
+  // button in modal window for update 
+  const onConfirm = () => {
+    // both new domain and new range must be given
+    if (domainUpdated && rangeUpdated) {
+      setModal(false);
+      handleRecordUpdate(id, domainUpdated, rangeUpdated);
+      setDomainUpdated('');
+      setRangeUpdated('');
+    }
+  };
+  const onChangeDomain = e => setDomainUpdated(e.target.value);
+  const onChangeRange = e => setRangeUpdated(e.target.value);
 
   return (
     <RecordListItemBlock>
@@ -60,8 +108,33 @@ const RecordListItem = ({ id, domain, range, handleRecordUpdate, handleRecordDel
       <RecordContent> {domain} </RecordContent>
       <RecordContent> {range} </RecordContent>
       {/* TODO */}
-      <EditBtn onClick={(e) => handleRecordUpdate(id)}> <MdModeEdit /> </EditBtn>
+      <EditBtn onClick={onUpdateClick}> <MdModeEdit /> </EditBtn>
       <RemoveBtn onClick={() => handleRecordDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
+      <ModalRecordUpdate
+        visible={modal}
+        onConfirm={onConfirm}
+        onCancel={onCancel}>
+        <StyledInsert>
+          <label>Update Domain To: </label>
+          <input
+            type="text"
+            name="domain"
+            value={domainUpdated}
+            placeholder={domain}
+            onChange={onChangeDomain}
+          />
+        </StyledInsert>
+        <StyledInsert>
+          <label>Update Range To: </label>
+          <input
+            type="text"
+            name="range"
+            value={rangeUpdated}
+            placeholder={range}
+            onChange={onChangeRange}
+          />
+        </StyledInsert>
+      </ModalRecordUpdate>
     </RecordListItemBlock>
   );
 };

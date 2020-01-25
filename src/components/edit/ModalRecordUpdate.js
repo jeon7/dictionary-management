@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from './Button';
+import Button from '../common/Button';
 
 const Fullscreen = styled.div`
   position: fixed;
@@ -14,7 +14,7 @@ const Fullscreen = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const AskModalBlock = styled.div`
+const ModalBlock = styled.div`
   width: 320px;
   background: white;
   padding: 1.5rem;
@@ -40,28 +40,30 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const ModalConfirm = ({
+const ModalRecordUpdate = ({
   visible,
-  title,
-  description,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
   onConfirm,
   onCancel,
+  children,
+  title = 'Record Update',
+  confirmText = 'Confirm',
+  cancelText = 'Cancel',
+
 }) => {
+
   if (!visible) return null;
   return (
     <Fullscreen>
-      <AskModalBlock>
+      <ModalBlock>
         <h2>{title}</h2>
-        <p>{description}</p>
+        {children}
         <div className="buttons">
           <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
           <StyledButton cyan onClick={onConfirm}>{confirmText}</StyledButton>
         </div>
-      </AskModalBlock>
+      </ModalBlock>
     </Fullscreen>
   );
 };
 
-export default ModalConfirm;
+export default ModalRecordUpdate;

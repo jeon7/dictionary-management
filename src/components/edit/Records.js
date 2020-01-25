@@ -43,7 +43,7 @@ class Records extends Component {
       });
   }
 
-  // handleRecordUpdate(id, done) {
+  // handleRecordUpdate(id) {
   //   db.table('records')
   //     .update(id, { dictionary_title, domain, range })
   //     .then(() => {
@@ -57,8 +57,18 @@ class Records extends Component {
   // }
 
   // TODO test
-  handleRecordUpdate(id) {
-    window.confirm('hey');
+  handleRecordUpdate(id, domain, range) {
+    window.confirm('update');
+    db.table('records')
+      .update(id, { domain, range })
+      .then(() => {
+        const recordToUpdate = this.state.records.find((record) => record.id === id);
+        const newList = [
+          ...this.state.records.filter((record) => record.id !== id),
+          Object.assign({}, recordToUpdate, { domain, range })
+        ];
+        this.setState({ records: newList });
+      })
   }
 
 
