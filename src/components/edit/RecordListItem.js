@@ -72,7 +72,13 @@ const StyledInsert = styled.div`
     }
 `;
 
-const RecordListItem = ({ id, domain, range, handleRecordUpdate, handleRecordDelete }) => {
+const RecordListItem = ({ id, domain, range,
+  handleRecordUpdate,
+  handleRecordDelete,
+  checkDuplicates,
+  checkForks,
+  checkCycles,
+  checkChains }) => {
 
   const [modal, setModal] = useState(false);
   const [domainUpdated, setDomainUpdated] = useState('');
@@ -145,7 +151,11 @@ RecordListItem.propTypes = {
   domain: PropTypes.string.isRequired,
   range: PropTypes.string.isRequired,
   handleRecordUpdate: PropTypes.func.isRequired,
-  handleRecordDelete: PropTypes.func.isRequired
+  handleRecordDelete: PropTypes.func.isRequired,
+  checkDuplicates: PropTypes.func.isRequired,
+  checkForks: PropTypes.func.isRequired,
+  checkCycles: PropTypes.func.isRequired,
+  checkChains: PropTypes.func.isRequired,
 };
 
 export default RecordListItem;

@@ -12,7 +12,11 @@ const RecordListBlock = styled.div`
 const RecordList = ({ records,
   selected_dictionary_title,
   handleRecordUpdate,
-  handleRecordDelete }) => {
+  handleRecordDelete,
+  checkDuplicates,
+  checkForks,
+  checkCycles,
+  checkChains }) => {
   let dictionaryRecords = records.filter(record => record.dictionary_title === selected_dictionary_title);
 
   return (
@@ -22,6 +26,10 @@ const RecordList = ({ records,
           key={record.id}{...record}
           handleRecordUpdate={handleRecordUpdate}
           handleRecordDelete={handleRecordDelete}
+          checkDuplicates={checkDuplicates}
+          checkForks={checkForks}
+          checkCycles={checkCycles}
+          checkChains={checkChains}
         />)}
     </RecordListBlock>
   );
@@ -35,7 +43,11 @@ RecordList.propTypes = {
     range: PropTypes.string.isRequired,
   })),
   handleRecordUpdate: PropTypes.func.isRequired,
-  handleRecordDelete: PropTypes.func.isRequired
+  handleRecordDelete: PropTypes.func.isRequired,
+  checkDuplicates: PropTypes.func.isRequired,
+  checkForks: PropTypes.func.isRequired,
+  checkCycles: PropTypes.func.isRequired,
+  checkChains: PropTypes.func.isRequired,
 };
 
 export default RecordList;

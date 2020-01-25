@@ -126,12 +126,62 @@ class Records extends Component {
     }
   }
 
-  checkCycles(newDomain, newRange) {
-    return true;
+  checkCycles(newDomain, newRange, selected_dictionary_title) {
+    if (newDomain === newRange) {
+      return false;
+    }
+
+    // records in same dictionary
+    const selected_records = this.state.records.filter((record) =>
+      record.dictionary_title === selected_dictionary_title);
+
+    // domain-range conflict: new domain = same range in records
+    const records_domain_range_conflict = selected_records.filter((record) =>
+      newDomain === record.range);
+
+    // cycles: new range = same domain in domain-range conflict records
+    const records_cycles = records_domain_range_conflict.filter((record) =>
+      newRange === record.domain);
+
+    //test
+    console.info('JSON.stringify(records_forks): ' + JSON.stringify(records_cycles));
+
+    if (records_cycles.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  checkChains(newDomain, newRange) {
-    return true;
+  checkChains(newDomain, newRange, selected_dictionary_title) {
+    if (newDomain === newRange) {
+      return false;
+    }
+    // records in same dictionary
+    const selected_records = this.state.records.filter((record) =>
+      record.dictionary_title === selected_dictionary_title);
+
+    // domain-range conflict 1
+    const records_domain_range_conflict1 = selected_records.filter((record) =>
+      newDomain === record.range && record.domain !== record.range);
+
+    // chain case 1
+    const records_chain1 = records_domain_range_conflict1.filter((record) =>
+      newRange !== record.domain);
+
+    // domain-range conflict 2
+    const records_domain_range_conflict2 = selected_records.filter((record) =>
+      newRange === record.domain && record.domain !== record.range);
+
+    // chain case 2
+    const records_chain2 = records_domain_range_conflict2.filter((record) =>
+      newDomain !== record.range);
+
+    if (records_chain1.length > 0 || records_chain2.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   render() {
@@ -156,6 +206,10 @@ class Records extends Component {
             selected_dictionary_title={selected_dictionary_title}
             handleRecordUpdate={this.handleRecordUpdate}
             handleRecordDelete={this.handleRecordDelete}
+            checkDuplicates={this.checkDuplicates}
+            checkForks={this.checkForks}
+            checkCycles={this.checkCycles}
+            checkChains={this.checkChains}
           />
         </RecordsTemplate>
       </>

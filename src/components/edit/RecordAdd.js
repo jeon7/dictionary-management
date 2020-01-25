@@ -61,8 +61,8 @@ class RecordAdd extends Component {
       // records validation check
       const isDuplicates = this.props.checkDuplicates(this.state.domain, this.state.range, this.state.dictionary_title);
       const isForks = this.props.checkForks(this.state.domain, this.state.range, this.state.dictionary_title);
-      // const isCycles = this.checkCycles(this.state.domain, this.state.range);
-      // const isChains = this.checkChains(this.state.domain, this.state.range);
+      const isCycles = this.props.checkCycles(this.state.domain, this.state.range, this.state.dictionary_title);
+      const isChains = this.props.checkChains(this.state.domain, this.state.range, this.state.dictionary_title);
 
       // TODO modal warning, confirm
       if (isDuplicates) {
@@ -74,6 +74,15 @@ class RecordAdd extends Component {
         console.log('Forks!');
       }
 
+      // TODO modal warning, not possible to save
+      if (isCycles) {
+        console.log('Cycles!');
+      }
+
+      // TODO modal warning, confirm
+      if (isChains) {
+        console.log('Chain!');
+      }
 
       this.props.handleRecordAdd(
         this.state.dictionary_title,
