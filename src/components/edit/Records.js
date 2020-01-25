@@ -14,6 +14,10 @@ class Records extends Component {
     this.handleRecordAdd = this.handleRecordAdd.bind(this);
     this.handleRecordUpdate = this.handleRecordUpdate.bind(this);
     this.handleRecordDelete = this.handleRecordDelete.bind(this);
+    this.checkDuplicates = this.checkDuplicates.bind(this);
+    this.checkForks = this.checkForks.bind(this);
+    this.checkCycles = this.checkCycles.bind(this);
+    this.checkChains = this.checkChains.bind(this);
   }
 
   componentDidMount() {
@@ -65,12 +69,21 @@ class Records extends Component {
         const newList = this.state.records.filter((record) => record.id !== id);
         this.setState({ records: newList });
       });
+
+
+    console.info('this.state: ' + JSON.stringify(this.state));
+    console.info('this.state.records: ' + JSON.stringify(this.state.records));
   }
 
-  checkDuplicates(newDomain, newRange) {
+  checkDuplicates(newDomain, newRange, selected_dictionary_title) {
+    //test
+    console.log('checkDuplicates() entered');
+    console.info('selected_dictionary_title: ' + JSON.stringify(selected_dictionary_title));
+    console.info('this.state.records: ' + JSON.stringify(this.state.records));
+
     // records in same dictionary
-    const selected_records = this.props.records.filter((record) =>
-      record.dictionary_title === this.props.selected_dictionary_title);
+    const selected_records = this.state.records.filter((record) =>
+      record.dictionary_title === selected_dictionary_title);
 
     // records with same domain
     const records_same_domain = selected_records.filter((record) =>
@@ -90,10 +103,10 @@ class Records extends Component {
     }
   }
 
-  checkForks(newDomain, newRange) {
+  checkForks(newDomain, newRange, selected_dictionary_title) {
     // records in same dictionary
-    const selected_records = this.props.records.filter((record) =>
-      record.dictionary_title === this.props.selected_dictionary_title);
+    const selected_records = this.state.records.filter((record) =>
+      record.dictionary_title === selected_dictionary_title);
 
     // records with same domain
     const records_same_domain = selected_records.filter((record) =>
@@ -123,6 +136,8 @@ class Records extends Component {
 
   render() {
     let selected_dictionary_title = this.props.match.params.dictionary_title;
+    //test
+    console.info('JSON.stringify(selected_dictionary_title): ' + JSON.stringify(selected_dictionary_title));
 
     return (
       <>
@@ -143,7 +158,6 @@ class Records extends Component {
             handleRecordDelete={this.handleRecordDelete}
           />
         </RecordsTemplate>
-
       </>
     );
   }
