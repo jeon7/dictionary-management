@@ -54,23 +54,26 @@ class RecordAdd extends Component {
 
   }
 
-  handleDomainChange(newDomain) {
-    this.setState({ domain: newDomain });
-  }
-
-  handleRangeChange(newRange) {
-    this.setState({ range: newRange });
-  }
-
   recordAdd() {
     // both domain and range must be given
     if (this.state.dictionary_title && this.state.domain && this.state.range) {
 
       // records validation check
-      let isDuplicates = this.checkDuplicates(this.state.domain, this.state.range);
-      let isForks = this.checkForks(this.state.domain, this.state.range);
-      let isCycles = this.checkCycles(this.state.domain, this.state.range);
-      let isChains = this.checkChains(this.state.domain, this.state.range);
+      const isDuplicates = this.props.checkDuplicates(this.state.domain, this.state.range);
+      const isForks = this.props.checkForks(this.state.domain, this.state.range);
+      // const isCycles = this.checkCycles(this.state.domain, this.state.range);
+      // const isChains = this.checkChains(this.state.domain, this.state.range);
+
+      // TODO modal warning, save possible
+      if (isDuplicates) {
+        console.log('Duplicates!');
+      }
+
+      // TODO modal warning, save possible
+      if (isForks) {
+        console.log('Forks!');
+      }
+
 
       this.props.handleRecordAdd(
         this.state.dictionary_title,
@@ -84,29 +87,13 @@ class RecordAdd extends Component {
     }
   }
 
-  checkDuplicates(newDomain, newRange) {
-    //test
-    console.info('JSON.stringify(this.props): ' + JSON.stringify(this.props));
-    const selected_records = this.props.records.filter((record) =>
-      record.dictionary_title === this.props.selected_dictionary_title);
-    //test
-    console.info('JSON.stringify(selected_records): ' + JSON.stringify(selected_records));
-    // if(newDomain )
-    return true;
+  handleDomainChange(newDomain) {
+    this.setState({ domain: newDomain });
   }
 
-  checkForks(newDomain, newRange) {
-    return true;
+  handleRangeChange(newRange) {
+    this.setState({ range: newRange });
   }
-
-  checkCycles(newDomain, newRange) {
-    return true;
-  }
-
-  checkChains(newDomain, newRange) {
-    return true;
-  }
-
 
 
   render() {
