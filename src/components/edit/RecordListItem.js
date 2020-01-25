@@ -80,17 +80,17 @@ const RecordListItem = ({ id, domain, range,
   checkCycles,
   checkChains }) => {
 
-  const [modal, setModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
   const [domainUpdated, setDomainUpdated] = useState('');
   const [rangeUpdated, setRangeUpdated] = useState('');
 
   const onUpdateClick = () => {
-    setModal(true);
+    setUpdateModal(true);
   }
 
   // button in modal window for update  
   const onCancel = () => {
-    setModal(false);
+    setUpdateModal(false);
     setDomainUpdated('');
     setRangeUpdated('');
   };
@@ -99,7 +99,7 @@ const RecordListItem = ({ id, domain, range,
   const onConfirm = () => {
     // both new domain and new range must be given
     if (domainUpdated && rangeUpdated) {
-      setModal(false);
+      setUpdateModal(false);
       handleRecordUpdate(id, domainUpdated, rangeUpdated);
       setDomainUpdated('');
       setRangeUpdated('');
@@ -117,7 +117,7 @@ const RecordListItem = ({ id, domain, range,
       <EditBtn onClick={onUpdateClick}> <MdModeEdit /> </EditBtn>
       <RemoveBtn onClick={() => handleRecordDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
       <ModalRecordUpdate
-        visible={modal}
+        visible={updateModal}
         onConfirm={onConfirm}
         onCancel={onCancel}>
         <StyledInsert>

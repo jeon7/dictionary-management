@@ -48,7 +48,6 @@ class Records extends Component {
   }
 
   handleRecordUpdate(id, domain, range) {
-    window.confirm('update');
     db.table('records')
       .update(id, { domain, range })
       .then(() => {
