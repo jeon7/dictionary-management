@@ -52,24 +52,15 @@ const EditBtn = styled.div`
   }
 `;
 
-const RecordListItem = ({ id, selected_dictionary_title, domain, range,
-  // handleRecordUpdate, 
-  handleRecordDelete }) => {
-  // TODO
-  // const onEdit = () => {
-  // let willEdit = window.confirm('do you want to edit this dictionary?');
-  // }
+const RecordListItem = ({ id, domain, range, handleRecordUpdate, handleRecordDelete }) => {
 
   return (
     <RecordListItemBlock>
-
-      {/* TODO */}
+      {/* TODO 경고 마크 component state 만들어서  */}
       <RecordContent> {domain} </RecordContent>
       <RecordContent> {range} </RecordContent>
       {/* TODO */}
-      <EditBtn
-      // onClick={(e) => handleDictionaryEdit(id, !done)}
-      > <MdModeEdit /> </EditBtn>
+      <EditBtn onClick={(e) => handleRecordUpdate(id)}> <MdModeEdit /> </EditBtn>
       <RemoveBtn onClick={() => handleRecordDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
     </RecordListItemBlock>
   );
@@ -80,7 +71,7 @@ RecordListItem.propTypes = {
   dictionary_title: PropTypes.string.isRequired,
   domain: PropTypes.string.isRequired,
   range: PropTypes.string.isRequired,
-  // handleRecordUpdate: PropTypes.func.isRequired,
+  handleRecordUpdate: PropTypes.func.isRequired,
   handleRecordDelete: PropTypes.func.isRequired
 };
 

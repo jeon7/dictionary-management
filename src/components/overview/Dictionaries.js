@@ -34,7 +34,7 @@ class Dictionaries extends Component {
   }
 
   handleDictionaryDelete(id) {
-    // delete record in dictionary to delete
+    // delete all the records in the dictionary to delete
     let dictionaryDelete = this.state.dictionaries.filter((dictionary) => dictionary.id === id);
     let dictionaryTitleDelete = dictionaryDelete[0].title;
     //test

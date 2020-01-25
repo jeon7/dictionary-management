@@ -11,7 +11,7 @@ const RecordListBlock = styled.div`
 
 const RecordList = ({ records,
   selected_dictionary_title,
-  // handleRecordUpdate, 
+  handleRecordUpdate,
   handleRecordDelete }) => {
   let dictionaryRecords = records.filter(record => record.dictionary_title === selected_dictionary_title);
 
@@ -19,9 +19,8 @@ const RecordList = ({ records,
     <RecordListBlock>
       {dictionaryRecords.map((record) =>
         <RecordListItem
-          key={record.id}
-          {...record}
-          // handleRecordUpdate={handleRecordUpdate}
+          key={record.id}{...record}
+          handleRecordUpdate={handleRecordUpdate}
           handleRecordDelete={handleRecordDelete}
         />)}
     </RecordListBlock>
@@ -35,7 +34,7 @@ RecordList.propTypes = {
     domain: PropTypes.string.isRequired,
     range: PropTypes.string.isRequired,
   })),
-  // handleRecordUpdate: PropTypes.func.isRequired,
+  handleRecordUpdate: PropTypes.func.isRequired,
   handleRecordDelete: PropTypes.func.isRequired
 };
 

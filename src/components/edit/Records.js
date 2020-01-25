@@ -4,12 +4,15 @@ import RecordsTemplate from './RecordsTemplate';
 import RecordAdd from './RecordAdd';
 import RecordList from './RecordList';
 
+
 class Records extends Component {
   constructor() {
     super();
-    this.state = { records: [] };
+    this.state = {
+      records: [],
+    };
     this.handleRecordAdd = this.handleRecordAdd.bind(this);
-    // this.handleRecordUpdate = this.handleRecordUpdate.bind(this);
+    this.handleRecordUpdate = this.handleRecordUpdate.bind(this);
     this.handleRecordDelete = this.handleRecordDelete.bind(this);
   }
 
@@ -53,6 +56,12 @@ class Records extends Component {
   //     });
   // }
 
+  // TODO test
+  handleRecordUpdate(id) {
+    window.confirm('hey');
+  }
+
+
   handleRecordDelete(id) {
     db.table('records')
       .delete(id)
@@ -70,20 +79,22 @@ class Records extends Component {
     let selected_dictionary_title = this.props.match.params.dictionary_title;
 
     return (
-      <RecordsTemplate selected_dictionary_title={selected_dictionary_title}>
-        <RecordAdd
-          records={this.state.records}
-          selected_dictionary_title={selected_dictionary_title}
-          handleRecordAdd={this.handleRecordAdd}
-        />
-        <RecordList
-          records={this.state.records}
-          selected_dictionary_title={selected_dictionary_title}
-          // handleRecordUpdate={this.handleRecordUpdate}
-          handleRecordDelete={this.handleRecordDelete}
-        />
-      </RecordsTemplate>
+      <>
+        <RecordsTemplate selected_dictionary_title={selected_dictionary_title}>
+          <RecordAdd
+            records={this.state.records}
+            selected_dictionary_title={selected_dictionary_title}
+            handleRecordAdd={this.handleRecordAdd}
+          />
+          <RecordList
+            records={this.state.records}
+            selected_dictionary_title={selected_dictionary_title}
+            handleRecordUpdate={this.handleRecordUpdate}
+            handleRecordDelete={this.handleRecordDelete}
+          />
+        </RecordsTemplate>
 
+      </>
     );
   }
 }

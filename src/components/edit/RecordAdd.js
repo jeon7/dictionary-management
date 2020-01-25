@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import Records from './Records';
+// import Records from './Records';
 
 const StyledInsert = styled.div`
     display: flex;
@@ -66,6 +66,7 @@ class RecordAdd extends Component {
     // both domain and range must be given
     if (this.state.dictionary_title && this.state.domain && this.state.range) {
 
+      // records validation check
       let isDuplicates = this.checkDuplicates(this.state.domain, this.state.range);
       let isForks = this.checkForks(this.state.domain, this.state.range);
       let isCycles = this.checkCycles(this.state.domain, this.state.range);
@@ -85,8 +86,11 @@ class RecordAdd extends Component {
 
   checkDuplicates(newDomain, newRange) {
     //test
-    console.info('RecordAdd constructor: JSON.stringify(this.props): ' + JSON.stringify(this.props));
-    // this.props.
+    console.info('JSON.stringify(this.props): ' + JSON.stringify(this.props));
+    const selected_records = this.props.records.filter((record) =>
+      record.dictionary_title === this.props.selected_dictionary_title);
+    //test
+    console.info('JSON.stringify(selected_records): ' + JSON.stringify(selected_records));
     // if(newDomain )
     return true;
   }

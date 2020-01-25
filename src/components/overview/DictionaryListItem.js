@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
+import ModalDictionaryDelete from './ModalDictionaryDelete';
 
 const DictionaryListItemBlock = styled.div`
   padding: 1rem;
@@ -51,13 +52,30 @@ const RemoveBtn = styled.div`
   }
 `;
 
-
 const DictionaryListItem = ({ title, id, handleDictionaryDelete }) => {
+  const [modal, setModal] = useState(false);
+
+  const onDeleteClick = () => {
+    setModal(true);
+  }
+  const onCancel = () => {
+    setModal(false);
+  };
+  const onConfirm = () => {
+    setModal(false);
+    handleDictionaryDelete(id);
+  };
+
   return (
     <DictionaryListItemBlock>
       <ItemTitle> {title} </ItemTitle>
       <Link to={`/edit/${title}`}> <MdModeEdit /> </Link>
-      <RemoveBtn onClick={() => handleDictionaryDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
+      <RemoveBtn onClick={onDeleteClick}> <MdRemoveCircleOutline /> </RemoveBtn>
+      <ModalDictionaryDelete
+        visible={modal}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+      />
     </DictionaryListItemBlock>
   );
 };
