@@ -1,7 +1,6 @@
 import React from 'react';
 import ModalAsk from '../common/ModalAsk';
 
-
 const ModalDictionaryDelete = ({
   visible,
   onConfirm,
