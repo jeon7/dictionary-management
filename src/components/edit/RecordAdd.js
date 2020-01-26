@@ -28,8 +28,8 @@ const StyledInsert = styled.div`
       border: none;
       background: #868e96;
       color: white;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: 3.3rem;
+      padding-right: 3.3rem;
       font-size: 1.125rem;
       display: flex;
       align-items: center;
@@ -66,7 +66,7 @@ class RecordAdd extends Component {
     if (this.state.dictionary_title && this.state.domain && this.state.range) {
 
       // records validation check
-      const isDuplicates = this.props.checkDuplicates(this.state.domain, this.state.range, this.state.dictionary_title);
+      const isDuplicates = this.props.checkDuplicatesAddRecord(this.state.domain, this.state.range, this.state.dictionary_title);
       const isForks = this.props.checkForks(this.state.domain, this.state.range, this.state.dictionary_title);
       const isCycles = this.props.checkCycles(this.state.domain, this.state.range, this.state.dictionary_title);
       const isChains = this.props.checkChains(this.state.domain, this.state.range, this.state.dictionary_title);
@@ -74,7 +74,7 @@ class RecordAdd extends Component {
       const textChains = isChains ? ' Chains! ' : '';
       const textForks = isForks ? ' Forks! ' : '';
       const textDuplicates = isDuplicates ? ' Duplicates! ' : '';
-      const text = textChains + textForks + textDuplicates;
+      const textConflicts = textChains + textForks + textDuplicates;
 
       // Cycles warning, not possible to save
       if (isCycles) {
@@ -88,7 +88,7 @@ class RecordAdd extends Component {
         if (isChains || isForks || isDuplicates) {
           this.setState({
             askModal: true,
-            modalTitle: text,
+            modalTitle: textConflicts,
             modalDescription: 'Are you sure to save this dataset?',
           });
 
@@ -189,7 +189,7 @@ class RecordAdd extends Component {
 
 RecordAdd.propTypes = {
   handleRecordAdd: PropTypes.func.isRequired,
-  checkDuplicates: PropTypes.func.isRequired,
+  checkDuplicatesAddRecord: PropTypes.func.isRequired,
   checkForks: PropTypes.func.isRequired,
   checkCycles: PropTypes.func.isRequired,
   checkChains: PropTypes.func.isRequired,

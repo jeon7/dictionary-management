@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
-import { MdWarning, MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
+import { MdContentCopy, MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
+import { FiLink } from 'react-icons/fi';
+import { IoIosGitNetwork } from 'react-icons/io';
 import ModalRecordUpdate from './ModalRecordUpdate';
 import ModalWarning from '../common/ModalWarning';
-import ModalAsk from '../common/ModalAsk';
 
 const RecordListItemBlock = styled.div`
   padding: 1rem;
@@ -24,15 +25,39 @@ const RecordContent = styled.div`
   flex: 1;
 `;
 
-const WarningBtn = styled.div`
+const IconArea = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 135px;
+  float: right;
+  
+`;
+
+const DuplicatesWarning = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.5rem;
-  color: #e97529;
-  cursor: pointer;
-  &:hover {
-    color: #f8d072;
+  color: #f2d666;
+  & + & {
+    border-top: 1px solid #dee2e6;
   }
+`;
+
+const ForksWarning = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #f18e2f;
+  & + & {
+    border-top: 1px solid #dee2e6;
+  }
+`;
+
+const ChainWarning = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #ec5538;
   & + & {
     border-top: 1px solid #dee2e6;
   }
@@ -55,7 +80,9 @@ const EditBtn = styled.div`
 
 const RemoveBtn = styled.div`
   margin-left: 0.5rem;
+  margin-right: 0;
   display: flex;
+  float: right;
   align-items: center;
   font-size: 1.5rem;
   color: red;
@@ -91,7 +118,7 @@ const RecordListItem = ({ id, domain, range,
   selected_dictionary_title,
   handleRecordUpdate,
   handleRecordDelete,
-  checkDuplicates,
+  checkDuplicatesMarkRecord,
   checkForks,
   checkCycles,
   checkChains }) => {
@@ -101,9 +128,24 @@ const RecordListItem = ({ id, domain, range,
   const [rangeUpdated, setRangeUpdated] = useState('');
 
   const [cyclesWarningModal, setCyclesWarningModal] = useState(false);
-  const [askModal, setAskModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalDescription, setModalDescription] = useState('');
+
+  const [isChains, setIsChains] = useState(false);
+  const [isForks, setIsForks] = useState(false);
+  const [isDuplicates, setIsDuplicates] = useState(false);
+
+  // TODO consider useCallback, missing dependency?
+  useEffect(() => {
+    console.log(useEffect);
+    const isChains = checkChains(domain, range, selected_dictionary_title);
+    const isForks = checkForks(domain, range, selected_dictionary_title);
+    const isDuplicates = checkDuplicatesMarkRecord(domain, range, selected_dictionary_title);
+
+    setIsChains(isChains);
+    setIsForks(isForks);
+    setIsDuplicates(isDuplicates);
+  });
 
   const onUpdateClick = () => {
     setUpdateModal(true);
@@ -116,15 +158,6 @@ const RecordListItem = ({ id, domain, range,
 
       // records validation check
       const isCycles = checkCycles(domainUpdated, rangeUpdated, selected_dictionary_title);
-
-      // TODO make other functions (problem: new dataset also compares the dataset to be updated)
-      // const isChains = checkChains(domainUpdated, rangeUpdated, selected_dictionary_title);
-      // const isForks = checkForks(domainUpdated, rangeUpdated, selected_dictionary_title);
-      // const isDuplicates = checkDuplicates(domainUpdated, rangeUpdated, selected_dictionary_title);
-      // const textChains = isChains ? ' Chains! ' : '';
-      // const textForks = isForks ? ' Forks! ' : '';
-      // const textDuplicates = isDuplicates ? ' Duplicates! ' : '';
-      // const text = textChains + textForks + textDuplicates;
 
       // Cycles warning, not possible to save
       if (isCycles) {
@@ -155,24 +188,7 @@ const RecordListItem = ({ id, domain, range,
     setRangeUpdated('');
   };
 
-  const onConfirmAskModal = () => {
-    setAskModal(false);
-    setUpdateModal(false);
-    handleRecordUpdate(id, domainUpdated, rangeUpdated);
-    setModalTitle('');
-    setModalDescription('');
-    setDomainUpdated('');
-    setRangeUpdated('');
-  };
-
-  const onCancelAskModal = () => {
-    setAskModal(false);
-    setModalTitle('');
-    setModalDescription('');
-    setDomainUpdated('');
-    setRangeUpdated('');
-  };
-
+  // for record update
   const onChangeDomain = e => setDomainUpdated(e.target.value);
   const onChangeRange = e => setRangeUpdated(e.target.value);
 
@@ -181,10 +197,13 @@ const RecordListItem = ({ id, domain, range,
       <RecordListItemBlock>
         <RecordContent> {domain} </RecordContent>
         <RecordContent> {range} </RecordContent>
-        {/* TODO 경고 마크 component state 만들어서 visible  */}
-        <WarningBtn > <MdWarning /> </WarningBtn>
-        <EditBtn onClick={onUpdateClick}> <MdModeEdit /> </EditBtn>
-        <RemoveBtn onClick={() => handleRecordDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
+        <IconArea>
+          {isDuplicates && <DuplicatesWarning > <MdContentCopy /> </DuplicatesWarning>}
+          {isForks && <ForksWarning > <IoIosGitNetwork /> </ForksWarning>}
+          {isChains && <ChainWarning > <FiLink /> </ChainWarning>}
+          <EditBtn onClick={onUpdateClick}> <MdModeEdit /> </EditBtn>
+          <RemoveBtn onClick={() => handleRecordDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
+        </IconArea>
       </RecordListItemBlock>
       <ModalRecordUpdate
         visible={updateModal}
@@ -217,13 +236,6 @@ const RecordListItem = ({ id, domain, range,
         description={modalDescription}
         onCancel={onCancelCyclesWarning}
       />
-      <ModalAsk
-        visible={askModal}
-        title={modalTitle}
-        description={modalDescription}
-        onConfirm={onConfirmAskModal}
-        onCancel={onCancelAskModal}
-      />
     </>
   );
 };
@@ -236,7 +248,7 @@ RecordListItem.propTypes = {
   selected_dictionary_title: PropTypes.string.isRequired,
   handleRecordUpdate: PropTypes.func.isRequired,
   handleRecordDelete: PropTypes.func.isRequired,
-  checkDuplicates: PropTypes.func.isRequired,
+  checkDuplicatesMarkRecord: PropTypes.func.isRequired,
   checkForks: PropTypes.func.isRequired,
   checkCycles: PropTypes.func.isRequired,
   checkChains: PropTypes.func.isRequired,

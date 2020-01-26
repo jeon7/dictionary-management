@@ -14,7 +14,8 @@ class Records extends Component {
     this.handleRecordAdd = this.handleRecordAdd.bind(this);
     this.handleRecordUpdate = this.handleRecordUpdate.bind(this);
     this.handleRecordDelete = this.handleRecordDelete.bind(this);
-    this.checkDuplicates = this.checkDuplicates.bind(this);
+    this.checkDuplicatesAddRecord = this.checkDuplicatesAddRecord.bind(this);
+    this.checkDuplicatesMarkRecord = this.checkDuplicatesMarkRecord.bind(this);
     this.checkForks = this.checkForks.bind(this);
     this.checkCycles = this.checkCycles.bind(this);
     this.checkChains = this.checkChains.bind(this);
@@ -74,7 +75,7 @@ class Records extends Component {
     console.info('this.state.records: ' + JSON.stringify(this.state.records));
   }
 
-  checkDuplicates(newDomain, newRange, selected_dictionary_title) {
+  checkDuplicatesAddRecord(newDomain, newRange, selected_dictionary_title) {
     //test
     console.log('checkDuplicates() entered');
     console.info('selected_dictionary_title: ' + JSON.stringify(selected_dictionary_title));
@@ -96,6 +97,34 @@ class Records extends Component {
     console.info('JSON.stringify(records_duplicates): ' + JSON.stringify(records_duplicates));
 
     if (records_duplicates.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  checkDuplicatesMarkRecord(newDomain, newRange, selected_dictionary_title) {
+    //test
+    console.log('checkDuplicates() entered');
+    console.info('selected_dictionary_title: ' + JSON.stringify(selected_dictionary_title));
+    console.info('this.state.records: ' + JSON.stringify(this.state.records));
+
+    // records in same dictionary
+    const selected_records = this.state.records.filter((record) =>
+      record.dictionary_title === selected_dictionary_title);
+
+    // records with same domain
+    const records_same_domain = selected_records.filter((record) =>
+      newDomain === record.domain);
+
+    // duplicates: records with same domain and same range
+    const records_duplicates = records_same_domain.filter((record) =>
+      newRange === record.range);
+
+    //test
+    console.info('JSON.stringify(records_duplicates): ' + JSON.stringify(records_duplicates));
+
+    if (records_duplicates.length > 1) {
       return true;
     } else {
       return false;
@@ -195,7 +224,7 @@ class Records extends Component {
             records={this.state.records}
             selected_dictionary_title={selected_dictionary_title}
             handleRecordAdd={this.handleRecordAdd}
-            checkDuplicates={this.checkDuplicates}
+            checkDuplicatesAddRecord={this.checkDuplicatesAddRecord}
             checkForks={this.checkForks}
             checkCycles={this.checkCycles}
             checkChains={this.checkChains}
@@ -205,7 +234,7 @@ class Records extends Component {
             selected_dictionary_title={selected_dictionary_title}
             handleRecordUpdate={this.handleRecordUpdate}
             handleRecordDelete={this.handleRecordDelete}
-            checkDuplicates={this.checkDuplicates}
+            checkDuplicatesMarkRecord={this.checkDuplicatesMarkRecord}
             checkForks={this.checkForks}
             checkCycles={this.checkCycles}
             checkChains={this.checkChains}

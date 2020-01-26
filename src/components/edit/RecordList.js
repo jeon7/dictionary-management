@@ -13,7 +13,7 @@ const RecordList = ({ records,
   selected_dictionary_title,
   handleRecordUpdate,
   handleRecordDelete,
-  checkDuplicates,
+  checkDuplicatesMarkRecord,
   checkForks,
   checkCycles,
   checkChains }) => {
@@ -27,7 +27,7 @@ const RecordList = ({ records,
           selected_dictionary_title={selected_dictionary_title}
           handleRecordUpdate={handleRecordUpdate}
           handleRecordDelete={handleRecordDelete}
-          checkDuplicates={checkDuplicates}
+          checkDuplicatesMarkRecord={checkDuplicatesMarkRecord}
           checkForks={checkForks}
           checkCycles={checkCycles}
           checkChains={checkChains}
@@ -46,7 +46,7 @@ RecordList.propTypes = {
   selected_dictionary_title: PropTypes.string.isRequired,
   handleRecordUpdate: PropTypes.func.isRequired,
   handleRecordDelete: PropTypes.func.isRequired,
-  checkDuplicates: PropTypes.func.isRequired,
+  checkDuplicatesMarkRecord: PropTypes.func.isRequired,
   checkForks: PropTypes.func.isRequired,
   checkCycles: PropTypes.func.isRequired,
   checkChains: PropTypes.func.isRequired,
