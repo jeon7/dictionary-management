@@ -56,7 +56,7 @@ const RemoveBtn = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.5rem;
-  color: #ff6b6b;
+  color: red;
   cursor: pointer;
   &:hover {
     color: #ff8787;

@@ -24,6 +24,7 @@ const RecordList = ({ records,
       {dictionaryRecords.map((record) =>
         <RecordListItem
           key={record.id}{...record}
+          selected_dictionary_title={selected_dictionary_title}
           handleRecordUpdate={handleRecordUpdate}
           handleRecordDelete={handleRecordDelete}
           checkDuplicates={checkDuplicates}
@@ -42,6 +43,7 @@ RecordList.propTypes = {
     domain: PropTypes.string.isRequired,
     range: PropTypes.string.isRequired,
   })),
+  selected_dictionary_title: PropTypes.string.isRequired,
   handleRecordUpdate: PropTypes.func.isRequired,
   handleRecordDelete: PropTypes.func.isRequired,
   checkDuplicates: PropTypes.func.isRequired,

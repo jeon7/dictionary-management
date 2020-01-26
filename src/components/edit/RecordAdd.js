@@ -71,6 +71,11 @@ class RecordAdd extends Component {
       const isCycles = this.props.checkCycles(this.state.domain, this.state.range, this.state.dictionary_title);
       const isChains = this.props.checkChains(this.state.domain, this.state.range, this.state.dictionary_title);
 
+      const textChains = isChains ? ' Chains! ' : '';
+      const textForks = isForks ? ' Forks! ' : '';
+      const textDuplicates = isDuplicates ? ' Duplicates! ' : '';
+      const text = textChains + textForks + textDuplicates;
+
       // Cycles warning, not possible to save
       if (isCycles) {
         this.setState({
@@ -80,24 +85,14 @@ class RecordAdd extends Component {
         });
         // can be multiple conflicts. ask once to confirm.
       } else {
-        if (isChains) {
+        if (isChains || isForks || isDuplicates) {
           this.setState({
             askModal: true,
-            modalTitle: 'Chain or Forks or Duplicate! ',
+            modalTitle: text,
             modalDescription: 'Are you sure to save this dataset?',
           });
-        } else if (isForks) {
-          this.setState({
-            askModal: true,
-            modalTitle: 'Forks or Duplicates!',
-            modalDescription: 'Are you sure to save this dataset?',
-          });
-        } else if (isDuplicates) {
-          this.setState({
-            askModal: true,
-            modalTitle: 'Duplicates!',
-            modalDescription: 'Are you sure to save this dataset?',
-          });
+
+          // no conflict
         } else {
           this.props.handleRecordAdd(
             this.state.dictionary_title,

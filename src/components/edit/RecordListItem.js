@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
-import { MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
+import { MdWarning, MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
 import ModalRecordUpdate from './ModalRecordUpdate';
+import ModalWarning from '../common/ModalWarning';
+import ModalAsk from '../common/ModalAsk';
 
 const RecordListItemBlock = styled.div`
   padding: 1rem;
@@ -22,23 +24,22 @@ const RecordContent = styled.div`
   flex: 1;
 `;
 
-const RemoveBtn = styled.div`
-  margin-left: 0.5rem;
+const WarningBtn = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.5rem;
-  color: #ff6b6b;
+  color: #e97529;
   cursor: pointer;
   &:hover {
-    color: #ff8787;
+    color: #f8d072;
   }
-
   & + & {
     border-top: 1px solid #dee2e6;
   }
 `;
 
 const EditBtn = styled.div`
+  margin-left: 0.5rem;
   display: flex;
   align-items: center;
   font-size: 1.5rem;
@@ -47,7 +48,21 @@ const EditBtn = styled.div`
   &:hover {
     color: #7bb4ba;
   }
+  & + & {
+    border-top: 1px solid #dee2e6;
+  }
+`;
 
+const RemoveBtn = styled.div`
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: red;
+  cursor: pointer;
+  &:hover {
+    color: #ff8787;
+  }
   & + & {
     border-top: 1px solid #dee2e6;
   }
@@ -73,6 +88,7 @@ const StyledInsert = styled.div`
 `;
 
 const RecordListItem = ({ id, domain, range,
+  selected_dictionary_title,
   handleRecordUpdate,
   handleRecordDelete,
   checkDuplicates,
@@ -84,44 +100,96 @@ const RecordListItem = ({ id, domain, range,
   const [domainUpdated, setDomainUpdated] = useState('');
   const [rangeUpdated, setRangeUpdated] = useState('');
 
+  const [cyclesWarningModal, setCyclesWarningModal] = useState(false);
+  const [askModal, setAskModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalDescription, setModalDescription] = useState('');
+
   const onUpdateClick = () => {
     setUpdateModal(true);
   }
 
-  // button in modal window for update  
-  const onCancel = () => {
+  // button in modal window for update 
+  const onConfirmUpdate = () => {
+    // both new domain and new range must be given
+    if (domainUpdated && rangeUpdated) {
+
+      // records validation check
+      const isCycles = checkCycles(domainUpdated, rangeUpdated, selected_dictionary_title);
+
+      // TODO make other functions (problem: new dataset also compares the dataset to be updated)
+      // const isChains = checkChains(domainUpdated, rangeUpdated, selected_dictionary_title);
+      // const isForks = checkForks(domainUpdated, rangeUpdated, selected_dictionary_title);
+      // const isDuplicates = checkDuplicates(domainUpdated, rangeUpdated, selected_dictionary_title);
+      // const textChains = isChains ? ' Chains! ' : '';
+      // const textForks = isForks ? ' Forks! ' : '';
+      // const textDuplicates = isDuplicates ? ' Duplicates! ' : '';
+      // const text = textChains + textForks + textDuplicates;
+
+      // Cycles warning, not possible to save
+      if (isCycles) {
+        setCyclesWarningModal(true);
+        setModalTitle('Severe Error: Cycles!');
+        setModalDescription('This dataset cannot be saved');
+        // no conflict
+      } else {
+        setUpdateModal(false);
+        handleRecordUpdate(id, domainUpdated, rangeUpdated);
+        setDomainUpdated('');
+        setRangeUpdated('');
+      }
+    }
+  };
+
+  const onCancelUpdate = () => {
     setUpdateModal(false);
     setDomainUpdated('');
     setRangeUpdated('');
   };
 
-  // button in modal window for update 
-  const onConfirm = () => {
-    // both new domain and new range must be given
-    if (domainUpdated && rangeUpdated) {
-      setUpdateModal(false);
-      handleRecordUpdate(id, domainUpdated, rangeUpdated);
-      setDomainUpdated('');
-      setRangeUpdated('');
-    }
+  const onCancelCyclesWarning = () => {
+    setCyclesWarningModal(false);
+    setModalTitle('');
+    setModalDescription('');
+    setDomainUpdated('');
+    setRangeUpdated('');
   };
+
+  const onConfirmAskModal = () => {
+    setAskModal(false);
+    setUpdateModal(false);
+    handleRecordUpdate(id, domainUpdated, rangeUpdated);
+    setModalTitle('');
+    setModalDescription('');
+    setDomainUpdated('');
+    setRangeUpdated('');
+  };
+
+  const onCancelAskModal = () => {
+    setAskModal(false);
+    setModalTitle('');
+    setModalDescription('');
+    setDomainUpdated('');
+    setRangeUpdated('');
+  };
+
   const onChangeDomain = e => setDomainUpdated(e.target.value);
   const onChangeRange = e => setRangeUpdated(e.target.value);
 
   return (
     <>
       <RecordListItemBlock>
-        {/* TODO 경고 마크 component state 만들어서  */}
         <RecordContent> {domain} </RecordContent>
         <RecordContent> {range} </RecordContent>
-        {/* TODO */}
+        {/* TODO 경고 마크 component state 만들어서 visible  */}
+        <WarningBtn > <MdWarning /> </WarningBtn>
         <EditBtn onClick={onUpdateClick}> <MdModeEdit /> </EditBtn>
         <RemoveBtn onClick={() => handleRecordDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
       </RecordListItemBlock>
       <ModalRecordUpdate
         visible={updateModal}
-        onConfirm={onConfirm}
-        onCancel={onCancel}>
+        onConfirm={onConfirmUpdate}
+        onCancel={onCancelUpdate}>
         <StyledInsert>
           <label>Update Domain To: </label>
           <input
@@ -143,6 +211,19 @@ const RecordListItem = ({ id, domain, range,
           />
         </StyledInsert>
       </ModalRecordUpdate>
+      <ModalWarning
+        visible={cyclesWarningModal}
+        title={modalTitle}
+        description={modalDescription}
+        onCancel={onCancelCyclesWarning}
+      />
+      <ModalAsk
+        visible={askModal}
+        title={modalTitle}
+        description={modalDescription}
+        onConfirm={onConfirmAskModal}
+        onCancel={onCancelAskModal}
+      />
     </>
   );
 };
@@ -152,6 +233,7 @@ RecordListItem.propTypes = {
   dictionary_title: PropTypes.string.isRequired,
   domain: PropTypes.string.isRequired,
   range: PropTypes.string.isRequired,
+  selected_dictionary_title: PropTypes.string.isRequired,
   handleRecordUpdate: PropTypes.func.isRequired,
   handleRecordDelete: PropTypes.func.isRequired,
   checkDuplicates: PropTypes.func.isRequired,
