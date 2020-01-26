@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-// import Records from './Records';
+import ModalWarning from '../common/ModalWarning';
+import ModalAsk from '../common/ModalAsk';
 
 const StyledInsert = styled.div`
     display: flex;
@@ -47,11 +48,17 @@ class RecordAdd extends Component {
       dictionary_title: this.props.selected_dictionary_title,
       domain: '',
       range: '',
+      cyclesWarningModal: false,
+      askModal: false,
+      modalTitle: '',
+      modalDescription: '',
     };
     this.recordAdd = this.recordAdd.bind(this);
     this.handleDomainChange = this.handleDomainChange.bind(this);
     this.handleRangeChange = this.handleRangeChange.bind(this);
-
+    this.onCancelCyclesWarning = this.onCancelCyclesWarning.bind(this);
+    this.onCancelAskModal = this.onCancelAskModal.bind(this);
+    this.onConfirmAskModal = this.onConfirmAskModal.bind(this);
   }
 
   recordAdd() {
@@ -64,35 +71,44 @@ class RecordAdd extends Component {
       const isCycles = this.props.checkCycles(this.state.domain, this.state.range, this.state.dictionary_title);
       const isChains = this.props.checkChains(this.state.domain, this.state.range, this.state.dictionary_title);
 
-      // TODO modal warning, confirm
-      if (isDuplicates) {
-        console.log('Duplicates!');
-      }
-
-      // TODO modal warning, confirm
-      if (isForks) {
-        console.log('Forks!');
-      }
-
-      // TODO modal warning, not possible to save
+      // Cycles warning, not possible to save
       if (isCycles) {
-        console.log('Cycles!');
+        this.setState({
+          cyclesWarningModal: true,
+          modalTitle: 'Severe Error: Cycles!',
+          modalDescription: 'This dataset cannot be saved',
+        });
+        // can be multiple conflicts. ask once to confirm.
+      } else {
+        if (isChains) {
+          this.setState({
+            askModal: true,
+            modalTitle: 'Chain or Forks or Duplicate! ',
+            modalDescription: 'Are you sure to save this dataset?',
+          });
+        } else if (isForks) {
+          this.setState({
+            askModal: true,
+            modalTitle: 'Forks or Duplicates!',
+            modalDescription: 'Are you sure to save this dataset?',
+          });
+        } else if (isDuplicates) {
+          this.setState({
+            askModal: true,
+            modalTitle: 'Duplicates!',
+            modalDescription: 'Are you sure to save this dataset?',
+          });
+        } else {
+          this.props.handleRecordAdd(
+            this.state.dictionary_title,
+            this.state.domain,
+            this.state.range);
+          this.setState({
+            domain: '',
+            range: '',
+          });
+        }
       }
-
-      // TODO modal warning, confirm
-      if (isChains) {
-        console.log('Chain!');
-      }
-
-      this.props.handleRecordAdd(
-        this.state.dictionary_title,
-        this.state.domain,
-        this.state.range);
-
-      this.setState({
-        domain: '',
-        range: '',
-      });
     }
   }
 
@@ -104,26 +120,74 @@ class RecordAdd extends Component {
     this.setState({ range: newRange });
   }
 
+  onCancelCyclesWarning() {
+    this.setState({
+      cyclesWarningModal: false,
+      modalTitle: '',
+      modalDescription: '',
+      domain: '',
+      range: '',
+    });
+  };
+
+  onConfirmAskModal() {
+    this.props.handleRecordAdd(
+      this.state.dictionary_title,
+      this.state.domain,
+      this.state.range);
+    this.setState({
+      askModal: false,
+      modalTitle: '',
+      modalDescription: '',
+      domain: '',
+      range: '',
+    });
+  }
+
+  onCancelAskModal() {
+    this.setState({
+      askModal: false,
+      modalTitle: '',
+      modalDescription: '',
+      domain: '',
+      range: '',
+    });
+  }
 
   render() {
     return (
-      <StyledInsert>
-        <input
-          type="text"
-          placeholder="Enter Domain"
-          value={this.state.domain}
-          onChange={(e) => this.handleDomainChange(e.target.value)}
+      <>
+        <StyledInsert>
+          <input
+            type="text"
+            placeholder="Enter Domain"
+            value={this.state.domain}
+            onChange={(e) => this.handleDomainChange(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Enter Range"
+            value={this.state.range}
+            onChange={(e) => this.handleRangeChange(e.target.value)}
+          />
+          <button onClick={this.recordAdd}>
+            <MdAdd />
+          </button>
+        </StyledInsert>
+        <ModalWarning
+          visible={this.state.cyclesWarningModal}
+          title={this.state.modalTitle}
+          description={this.state.modalDescription}
+          onCancel={this.onCancelCyclesWarning}
         />
-        <input
-          type="text"
-          placeholder="Enter Range"
-          value={this.state.range}
-          onChange={(e) => this.handleRangeChange(e.target.value)}
+        <ModalAsk
+          visible={this.state.askModal}
+          title={this.state.modalTitle}
+          description={this.state.modalDescription}
+          onConfirm={this.onConfirmAskModal}
+          onCancel={this.onCancelAskModal}
         />
-        <button onClick={this.recordAdd}>
-          <MdAdd />
-        </button>
-      </StyledInsert>
+      </>
     );
   }
 }

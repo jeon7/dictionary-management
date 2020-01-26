@@ -42,7 +42,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const ModalConfirm = ({
+const ModalAsk = ({
   visible,
   title,
   description,
@@ -64,4 +64,4 @@ const ModalConfirm = ({
   );
 };
 
-export default ModalConfirm;
+export default ModalAsk;

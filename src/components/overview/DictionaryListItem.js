@@ -36,6 +36,21 @@ const ItemTitle = styled.div`
   flex: 1;
 `;
 
+const EditBtn = styled(Link)`
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #2d84ac;
+  cursor: pointer;
+  &:hover {
+    color: #7bb4ba;
+  }
+
+  & + & {
+    border-top: 1px solid #dee2e6;
+  }
+`;
+
 const RemoveBtn = styled.div`
   margin-left: 0.5rem;
   display: flex;
@@ -67,16 +82,18 @@ const DictionaryListItem = ({ title, id, handleDictionaryDelete }) => {
   };
 
   return (
-    <DictionaryListItemBlock>
-      <ItemTitle> {title} </ItemTitle>
-      <Link to={`/edit/${title}`}> <MdModeEdit /> </Link>
-      <RemoveBtn onClick={onDeleteClick}> <MdRemoveCircleOutline /> </RemoveBtn>
+    <>
+      <DictionaryListItemBlock>
+        <ItemTitle> {title} </ItemTitle>
+        <EditBtn to={`/edit/${title}`}> <MdModeEdit /> </EditBtn>
+        <RemoveBtn onClick={onDeleteClick}> <MdRemoveCircleOutline /> </RemoveBtn>
+      </DictionaryListItemBlock>
       <ModalDictionaryDelete
         visible={modal}
         onConfirm={onConfirm}
         onCancel={onCancel}
       />
-    </DictionaryListItemBlock>
+    </>
   );
 };
 

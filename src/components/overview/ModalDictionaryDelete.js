@@ -1,5 +1,5 @@
 import React from 'react';
-import ModalConfirm from '../common/ModalConfirm';
+import ModalAsk from '../common/ModalAsk';
 
 
 const ModalDictionaryDelete = ({
@@ -9,7 +9,7 @@ const ModalDictionaryDelete = ({
 }) => {
   if (!visible) return null;
   return (
-    <ModalConfirm
+    <ModalAsk
       visible={visible}
       title="Dictionary Delete"
       description="Are you sure to delete this dictionary?"

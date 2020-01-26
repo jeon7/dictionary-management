@@ -109,13 +109,15 @@ const RecordListItem = ({ id, domain, range,
   const onChangeRange = e => setRangeUpdated(e.target.value);
 
   return (
-    <RecordListItemBlock>
-      {/* TODO 경고 마크 component state 만들어서  */}
-      <RecordContent> {domain} </RecordContent>
-      <RecordContent> {range} </RecordContent>
-      {/* TODO */}
-      <EditBtn onClick={onUpdateClick}> <MdModeEdit /> </EditBtn>
-      <RemoveBtn onClick={() => handleRecordDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
+    <>
+      <RecordListItemBlock>
+        {/* TODO 경고 마크 component state 만들어서  */}
+        <RecordContent> {domain} </RecordContent>
+        <RecordContent> {range} </RecordContent>
+        {/* TODO */}
+        <EditBtn onClick={onUpdateClick}> <MdModeEdit /> </EditBtn>
+        <RemoveBtn onClick={() => handleRecordDelete(id)}> <MdRemoveCircleOutline /> </RemoveBtn>
+      </RecordListItemBlock>
       <ModalRecordUpdate
         visible={updateModal}
         onConfirm={onConfirm}
@@ -141,7 +143,7 @@ const RecordListItem = ({ id, domain, range,
           />
         </StyledInsert>
       </ModalRecordUpdate>
-    </RecordListItemBlock>
+    </>
   );
 };
 
