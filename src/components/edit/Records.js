@@ -4,7 +4,6 @@ import RecordsTemplate from './RecordsTemplate';
 import RecordAdd from './RecordAdd';
 import RecordList from './RecordList';
 
-
 class Records extends Component {
   constructor() {
     super();
@@ -69,18 +68,9 @@ class Records extends Component {
         const newList = this.state.records.filter((record) => record.id !== id);
         this.setState({ records: newList });
       });
-
-
-    console.info('this.state: ' + JSON.stringify(this.state));
-    console.info('this.state.records: ' + JSON.stringify(this.state.records));
   }
 
   checkDuplicatesAddRecord(newDomain, newRange, selected_dictionary_title) {
-    //test
-    console.log('checkDuplicates() entered');
-    console.info('selected_dictionary_title: ' + JSON.stringify(selected_dictionary_title));
-    console.info('this.state.records: ' + JSON.stringify(this.state.records));
-
     // records in same dictionary
     const selected_records = this.state.records.filter((record) =>
       record.dictionary_title === selected_dictionary_title);
@@ -93,9 +83,6 @@ class Records extends Component {
     const records_duplicates = records_same_domain.filter((record) =>
       newRange === record.range);
 
-    //test
-    console.info('JSON.stringify(records_duplicates): ' + JSON.stringify(records_duplicates));
-
     if (records_duplicates.length > 0) {
       return true;
     } else {
@@ -104,11 +91,6 @@ class Records extends Component {
   }
 
   checkDuplicatesMarkRecord(newDomain, newRange, selected_dictionary_title) {
-    //test
-    console.log('checkDuplicates() entered');
-    console.info('selected_dictionary_title: ' + JSON.stringify(selected_dictionary_title));
-    console.info('this.state.records: ' + JSON.stringify(this.state.records));
-
     // records in same dictionary
     const selected_records = this.state.records.filter((record) =>
       record.dictionary_title === selected_dictionary_title);
@@ -144,9 +126,6 @@ class Records extends Component {
     const records_forks = records_same_domain.filter((record) =>
       newRange !== record.range);
 
-    //test
-    console.info('JSON.stringify(records_forks): ' + JSON.stringify(records_forks));
-
     if (records_forks.length > 0) {
       return true;
     } else {
@@ -170,9 +149,6 @@ class Records extends Component {
     // cycles: new range = same domain in domain-range conflict records
     const records_cycles = records_domain_range_conflict.filter((record) =>
       newRange === record.domain);
-
-    //test
-    console.info('JSON.stringify(records_forks): ' + JSON.stringify(records_cycles));
 
     if (records_cycles.length > 0) {
       return true;
@@ -214,8 +190,6 @@ class Records extends Component {
 
   render() {
     let selected_dictionary_title = this.props.match.params.dictionary_title;
-    //test
-    console.info('JSON.stringify(selected_dictionary_title): ' + JSON.stringify(selected_dictionary_title));
 
     return (
       <>

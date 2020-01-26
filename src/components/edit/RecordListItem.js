@@ -137,7 +137,6 @@ const RecordListItem = ({ id, domain, range,
 
   // TODO consider useCallback, missing dependency?
   useEffect(() => {
-    console.log(useEffect);
     const isChains = checkChains(domain, range, selected_dictionary_title);
     const isForks = checkForks(domain, range, selected_dictionary_title);
     const isDuplicates = checkDuplicatesMarkRecord(domain, range, selected_dictionary_title);
@@ -155,10 +154,8 @@ const RecordListItem = ({ id, domain, range,
   const onConfirmUpdate = () => {
     // both new domain and new range must be given
     if (domainUpdated && rangeUpdated) {
-
       // records validation check
       const isCycles = checkCycles(domainUpdated, rangeUpdated, selected_dictionary_title);
-
       // Cycles warning, not possible to save
       if (isCycles) {
         setCyclesWarningModal(true);

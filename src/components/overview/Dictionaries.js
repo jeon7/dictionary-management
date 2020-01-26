@@ -37,8 +37,6 @@ class Dictionaries extends Component {
     // delete all the records in the dictionary to delete
     let dictionaryDelete = this.state.dictionaries.filter((dictionary) => dictionary.id === id);
     let dictionaryTitleDelete = dictionaryDelete[0].title;
-    //test
-    console.info('dictionaryTitleDelete: ' + JSON.stringify(dictionaryTitleDelete));
 
     db.table('records')
       .where("dictionary_title").anyOf(dictionaryTitleDelete)
@@ -54,8 +52,6 @@ class Dictionaries extends Component {
         const newList = this.state.dictionaries.filter((dictionary) => dictionary.id !== id);
         this.setState({ dictionaries: newList });
       });
-
-
   }
 
   render() {
@@ -67,7 +63,6 @@ class Dictionaries extends Component {
           handleDictionaryDelete={this.handleDictionaryDelete}
         />
       </DictionariesTemplate>
-
     );
   }
 }

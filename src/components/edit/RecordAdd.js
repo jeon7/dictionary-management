@@ -64,7 +64,6 @@ class RecordAdd extends Component {
   recordAdd() {
     // both domain and range must be given
     if (this.state.dictionary_title && this.state.domain && this.state.range) {
-
       // records validation check
       const isDuplicates = this.props.checkDuplicatesAddRecord(this.state.domain, this.state.range, this.state.dictionary_title);
       const isForks = this.props.checkForks(this.state.domain, this.state.range, this.state.dictionary_title);
@@ -75,7 +74,6 @@ class RecordAdd extends Component {
       const textForks = isForks ? ' Forks! ' : '';
       const textDuplicates = isDuplicates ? ' Duplicates! ' : '';
       const textConflicts = textChains + textForks + textDuplicates;
-
       // Cycles warning, not possible to save
       if (isCycles) {
         this.setState({
@@ -91,7 +89,6 @@ class RecordAdd extends Component {
             modalTitle: textConflicts,
             modalDescription: 'Are you sure to save this dataset?',
           });
-
           // no conflict
         } else {
           this.props.handleRecordAdd(
