@@ -10,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Style: styled-components
 
 * build tool / dependency management
-yarn
+- yarn
 
 * Main Libraries
 react 
