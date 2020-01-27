@@ -22,23 +22,45 @@ http://dictionary-management.herokuapp.com/
 
 * Main Libraries
 
-react 
+        react 
 
-dexie (to use indexeddb - local storage)
+        dexie (to use indexeddb - local storage)
 
 
 
 ## dependencies
 
-Apache License v2.0: "dexie": "^2.0.4" 
+Apache License v2.0: 
 
-MIT License: {
-    
-    "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-icons": "^3.8.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
-    "styled-components": "^5.0.0"
-}
+    "dexie": "^2.0.4" 
+
+MIT License: 
+
+    {
+        "prop-types": "^15.7.2",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "react-icons": "^3.8.0",
+        "react-router-dom": "^5.1.2",
+        "react-scripts": "3.3.0",
+        "styled-components": "^5.0.0"
+    }
+
+## additional info
+
+### package diagram
+
+![dic_mgmt_package_diagram](https://user-images.githubusercontent.com/49291474/73144316-fc4de900-40a4-11ea-99b6-1da01963d6d3.png)
+
+### database model
+
+![dic_mgmt_db_model](https://user-images.githubusercontent.com/49291474/73144317-ffe17000-40a4-11ea-9920-89aa988c010c.png)
+
+To achieve simpler code, one table for dictionary list, one table for all records from all dictionaries are used.
+
+### Demo Video
+
+https://youtu.be/odSkhBbYqCQ
+
+Check this, in case the link of the application doesn't work.
+
