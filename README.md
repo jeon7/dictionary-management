@@ -54,9 +54,9 @@ MIT License:
 
 ### database model
 
-![dic_mgmt_db_model](https://user-images.githubusercontent.com/49291474/73144317-ffe17000-40a4-11ea-9920-89aa988c010c.png)
+![dic_mgmt_db_model](https://user-images.githubusercontent.com/49291474/73145517-543d1d80-40ae-11ea-84e6-b330effec311.png)
 
-To achieve simpler code, one table for dictionary list, one table for all records from all dictionaries are used.
+To achieve simpler code, one table for dictionary list, one table for all records from all dictionaries.
 
 ### Demo Video
 
