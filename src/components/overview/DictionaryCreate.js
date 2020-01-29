@@ -22,12 +22,12 @@ const StyledInsertForm = styled.form`
     line-height: 1.5;
     color: white;
 
-  :focus {
+    :focus {
     border-color: #FA5246;
     border-style: solid;
     border-width: 3px;
     border-radius: 1px;
-  }
+    }
 
     &::placeholder {
       color: #dee2e6;

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from './Button';
 
@@ -50,16 +50,6 @@ const ModalAsk = ({
   onCancel,
 }) => {
 
-
-  // const confirmBtnRef = useRef(null);
-
-  // test
-  // console.info(JSON.stringify(confirmBtnRef));
-
-  // useEffect(() => {
-  //   confirmBtnRef.current.focus();
-  // });
-
   if (!visible) return null;
 
   return (
@@ -68,15 +58,8 @@ const ModalAsk = ({
         <h2>{title}</h2>
         <p>{description}</p>
         <div className="buttons">
-          <StyledButton onClick={onCancel}> Cancel </StyledButton>
-          <StyledButton
-            cyan
-            onClick={onConfirm}
-          // ref={confirmBtnRef}
-          // autoFocus={true}
-          >
-            Confirm
-          </StyledButton>
+          <StyledButton onClick={onCancel} autoFocus={true} > Cancel </StyledButton>
+          <StyledButton cyan onClick={onConfirm}> Confirm </StyledButton>
         </div>
       </ModalBlock>
     </Fullscreen>

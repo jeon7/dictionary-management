@@ -10,19 +10,6 @@ const DictionaryListItemBlock = styled.div`
   display: flex;
   align-items: center;
   background: #495057;
-  /* Link{
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    color: #2d84ac;
-    cursor: pointer;
-    &:hover {
-     color: #7bb4ba;
-    }
-    & + & {
-      border-top: 1px solid #dee2e6;
-    }
-  } */
   &:nth-child(even) {
     background: #f8f9fa;
   }
@@ -31,9 +18,17 @@ const DictionaryListItemBlock = styled.div`
   }
 `;
 
-const ItemTitle = styled.div`
+const ItemTitleEditLink = styled(Link)`
   margin-left: 0.5rem;
   flex: 1;
+  display: flex;
+  align-items: center;
+  color: #2d84ac;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    color: #7bb4ba;
+  }
 `;
 
 const EditBtn = styled(Link)`
@@ -84,7 +79,7 @@ const DictionaryListItem = ({ title, id, handleDictionaryDelete }) => {
   return (
     <>
       <DictionaryListItemBlock>
-        <ItemTitle> {title} </ItemTitle>
+        <ItemTitleEditLink to={`/edit/${title}`}> {title} </ItemTitleEditLink>
         <EditBtn to={`/edit/${title}`}> <MdModeEdit /> </EditBtn>
         <RemoveBtn onClick={onDeleteClick}> <MdRemoveCircleOutline /> </RemoveBtn>
       </DictionaryListItemBlock>

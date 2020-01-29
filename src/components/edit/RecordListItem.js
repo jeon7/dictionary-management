@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { MdContentCopy, MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
@@ -23,6 +23,15 @@ const RecordListItemBlock = styled.div`
 const RecordContent = styled.div`
   margin-left: 0.5rem;
   flex: 1;
+  margin-left: 0.5rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  color: #2d84ac;
+  cursor: pointer;
+  &:hover {
+    color: #7bb4ba;
+  }
 `;
 
 const IconArea = styled.div`
@@ -135,8 +144,6 @@ const RecordListItem = ({ id, domain, range,
   const [isForks, setIsForks] = useState(false);
   const [isDuplicates, setIsDuplicates] = useState(false);
 
-  // const recordUpdateInputRef = useRef(null);
-
   // TODO consider useCallback, missing dependency?
   useEffect(() => {
     const isChains = checkChains(domain, range, selected_dictionary_title);
@@ -149,10 +156,9 @@ const RecordListItem = ({ id, domain, range,
 
   });
 
-  const onUpdateClick = () => {
-    // recordUpdateInputRef.current.focus();
+  const onUpdateClick = useCallback(() => {
     setUpdateModal(true);
-  }
+  }, [updateModal]);
 
   // button in modal window for update 
   const onConfirmUpdate = () => {
@@ -196,8 +202,8 @@ const RecordListItem = ({ id, domain, range,
   return (
     <>
       <RecordListItemBlock>
-        <RecordContent> {domain} </RecordContent>
-        <RecordContent> {range} </RecordContent>
+        <RecordContent onClick={onUpdateClick}> {domain} </RecordContent>
+        <RecordContent onClick={onUpdateClick}> {range} </RecordContent>
         <IconArea>
           {isDuplicates && <DuplicatesWarning > <MdContentCopy /> </DuplicatesWarning>}
           {isForks && <ForksWarning > <IoIosGitNetwork /> </ForksWarning>}
@@ -218,7 +224,7 @@ const RecordListItem = ({ id, domain, range,
             value={domainUpdated}
             placeholder={domain}
             onChange={onChangeDomain}
-          // ref={recordUpdateInputRef}
+            autoFocus={true}
           />
         </StyledInsert>
         <StyledInsert>
