@@ -6,39 +6,57 @@ import ModalWarning from '../common/ModalWarning';
 import ModalAsk from '../common/ModalAsk';
 
 const StyledInsertForm = styled.form`
+  display: flex;
+  background: #495057;
+
+  input {
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: white;
+    border: 1px solid black;
+    
+    :focus {
+    border-color: #FA5246;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 1px;
+    }
+      
+    &::placeholder {
+      color: #dee2e6;
+    }
+    flex: 1;
+  }
+
+  button{
+    background: none;
+    outline: none;
+    border: none;
+    background: #868e96;
+    color: white;
+    padding-left: 3.3rem;
+    padding-right: 3.3rem;
+    font-size: 1.125rem;
     display: flex;
-    background: #495057;
-    input {
-      background: none;
-      outline: none;
-      border: none;
-      padding: 0.5rem;
-      font-size: 1.125rem;
-      line-height: 1.5;
-      color: white;
-      border: 1px solid black;
-      &::placeholder {
-        color: #dee2e6;
-      }
-      flex: 1;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+
+    :focus {
+    border-color: #FA5246;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 1px;
     }
-    button{
-      background: none;
-      outline: none;
-      border: none;
-      background: #868e96;
-      color: white;
-      padding-left: 3.3rem;
-      padding-right: 3.3rem;
-      font-size: 1.125rem;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      transition: 0.1s background ease-in;
-      &:hover {
-        background: #abd5bd;
-      }
+
+    &:hover {
+      background: #abd5bd;
     }
+  }
 `;
 
 class RecordAdd extends Component {
@@ -106,10 +124,13 @@ class RecordAdd extends Component {
           });
         }
       }
+      // autofocus to input 
+      this.recordInputRef.current.focus();
+      e.preventDefault();
+
     }
 
-    this.recordInputRef.current.focus();
-    e.preventDefault();
+
   }
 
   handleDomainChange(newDomain) {

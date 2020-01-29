@@ -13,8 +13,14 @@ const buttonStyle = css`
   cursor: pointer;
 
   background: #343a40;
+
+  &:focus {
+    outline: 4px #FA5246 solid;
+    outline-offset: 2px;
+  }
+
   &:hover {
-    background: #868e96
+    background: #868e96;
   }
 
   ${props =>

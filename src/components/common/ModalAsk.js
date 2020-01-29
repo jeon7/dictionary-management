@@ -73,6 +73,7 @@ const ModalAsk = ({
             cyan
             onClick={onConfirm}
           // ref={confirmBtnRef}
+          // autoFocus={true}
           >
             Confirm
           </StyledButton>

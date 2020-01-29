@@ -6,19 +6,35 @@ import { PropTypes } from 'prop-types';
 const StyledInsertForm = styled.form`
   display: flex;
   background: #495057;
+
+  border-color: #3B545B;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 1px;
+  
   input {
     background: none;
     outline: none;
-    border: none;
+    /* border: none; */
+    border-color: transparent;
     padding: 0.5rem;
     font-size: 1.125rem;
     line-height: 1.5;
     color: white;
+
+  :focus {
+    border-color: #FA5246;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 1px;
+  }
+
     &::placeholder {
       color: #dee2e6;
     }
     flex: 1;
   }
+
   button{
     background: none;
     outline: none;
@@ -32,6 +48,14 @@ const StyledInsertForm = styled.form`
     align-items: center;
     cursor: pointer;
     transition: 0.1s background ease-in;
+
+    :focus {
+    border-color: #FA5246;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 1px;
+    }
+
     &:hover {
       background: #abd5bd;
     }

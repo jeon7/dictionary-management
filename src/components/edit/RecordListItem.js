@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { MdContentCopy, MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
@@ -135,6 +135,8 @@ const RecordListItem = ({ id, domain, range,
   const [isForks, setIsForks] = useState(false);
   const [isDuplicates, setIsDuplicates] = useState(false);
 
+  // const recordUpdateInputRef = useRef(null);
+
   // TODO consider useCallback, missing dependency?
   useEffect(() => {
     const isChains = checkChains(domain, range, selected_dictionary_title);
@@ -144,9 +146,11 @@ const RecordListItem = ({ id, domain, range,
     setIsChains(isChains);
     setIsForks(isForks);
     setIsDuplicates(isDuplicates);
+
   });
 
   const onUpdateClick = () => {
+    // recordUpdateInputRef.current.focus();
     setUpdateModal(true);
   }
 
@@ -214,6 +218,7 @@ const RecordListItem = ({ id, domain, range,
             value={domainUpdated}
             placeholder={domain}
             onChange={onChangeDomain}
+          // ref={recordUpdateInputRef}
           />
         </StyledInsert>
         <StyledInsert>
