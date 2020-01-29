@@ -3,7 +3,7 @@ import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 
-const StyledInsert = styled.div`
+const StyledInsertForm = styled.form`
   display: flex;
   background: #495057;
   input {
@@ -42,35 +42,43 @@ class DictionaryCreate extends Component {
   constructor() {
     super();
     this.state = { value: '' };
+    this.dictionaryInputRef = React.createRef();
     this.createDictionary = this.createDictionary.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.dictionaryInputRef.current.focus();
   }
 
   handleChange(newValue) {
     this.setState({ value: newValue });
   }
 
-  createDictionary() {
+  createDictionary(e) {
     // dictionary name must be given
     if (this.state.value) {
       this.props.handleDictionaryCreate(this.state.value);
       this.setState({ value: '' });
     }
+    this.dictionaryInputRef.current.focus();
+    e.preventDefault();
   }
 
   render() {
     return (
-      <StyledInsert>
+      <StyledInsertForm onSubmit={this.createDictionary}>
         <input
           type="text"
           placeholder="enter the name of dictionary to create."
           value={this.state.value}
           onChange={(e) => this.handleChange(e.target.value)}
+          ref={this.dictionaryInputRef}
         />
-        <button onClick={this.createDictionary}>
+        <button type="submit">
           <MdAdd />
         </button>
-      </StyledInsert>
+      </StyledInsertForm>
     );
   }
 }

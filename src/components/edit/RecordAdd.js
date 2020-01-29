@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
 import ModalWarning from '../common/ModalWarning';
 import ModalAsk from '../common/ModalAsk';
 
-const StyledInsert = styled.div`
+const StyledInsertForm = styled.form`
     display: flex;
     background: #495057;
     input {
@@ -53,6 +53,7 @@ class RecordAdd extends Component {
       modalTitle: '',
       modalDescription: '',
     };
+    this.recordInputRef = React.createRef();
     this.recordAdd = this.recordAdd.bind(this);
     this.handleDomainChange = this.handleDomainChange.bind(this);
     this.handleRangeChange = this.handleRangeChange.bind(this);
@@ -61,7 +62,11 @@ class RecordAdd extends Component {
     this.onConfirmAskModal = this.onConfirmAskModal.bind(this);
   }
 
-  recordAdd() {
+  componentDidMount() {
+    this.recordInputRef.current.focus();
+  }
+
+  recordAdd(e) {
     // both domain and range must be given
     if (this.state.dictionary_title && this.state.domain && this.state.range) {
       // records validation check
@@ -102,6 +107,9 @@ class RecordAdd extends Component {
         }
       }
     }
+
+    this.recordInputRef.current.focus();
+    e.preventDefault();
   }
 
   handleDomainChange(newDomain) {
@@ -149,12 +157,13 @@ class RecordAdd extends Component {
   render() {
     return (
       <>
-        <StyledInsert>
+        <StyledInsertForm onSubmit={this.recordAdd}>
           <input
             type="text"
             placeholder="Enter Domain"
             value={this.state.domain}
             onChange={(e) => this.handleDomainChange(e.target.value)}
+            ref={this.recordInputRef}
           />
           <input
             type="text"
@@ -162,10 +171,10 @@ class RecordAdd extends Component {
             value={this.state.range}
             onChange={(e) => this.handleRangeChange(e.target.value)}
           />
-          <button onClick={this.recordAdd}>
+          <button type="submit">
             <MdAdd />
           </button>
-        </StyledInsert>
+        </StyledInsertForm>
         <ModalWarning
           visible={this.state.cyclesWarningModal}
           title={this.state.modalTitle}
