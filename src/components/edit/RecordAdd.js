@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
-import ModalWarning from '../common/ModalWarning';
 import ModalAsk from '../common/ModalAsk';
 
 const StyledInsertForm = styled.form`
@@ -66,7 +65,6 @@ class RecordAdd extends Component {
       dictionary_title: this.props.selected_dictionary_title,
       domain: '',
       range: '',
-      cyclesWarningModal: false,
       askModal: false,
       modalTitle: '',
       modalDescription: '',
@@ -75,7 +73,6 @@ class RecordAdd extends Component {
     this.recordAdd = this.recordAdd.bind(this);
     this.handleDomainChange = this.handleDomainChange.bind(this);
     this.handleRangeChange = this.handleRangeChange.bind(this);
-    this.onCancelCyclesWarning = this.onCancelCyclesWarning.bind(this);
     this.onCancelAskModal = this.onCancelAskModal.bind(this);
     this.onConfirmAskModal = this.onConfirmAskModal.bind(this);
   }
@@ -93,44 +90,34 @@ class RecordAdd extends Component {
       const isCycles = this.props.checkCycles(this.state.domain, this.state.range, this.state.dictionary_title);
       const isChains = this.props.checkChains(this.state.domain, this.state.range, this.state.dictionary_title);
 
+      const textCycles = isCycles ? ' Cycles (Sever Error) !' : '';
       const textChains = isChains ? ' Chains! ' : '';
       const textForks = isForks ? ' Forks! ' : '';
       const textDuplicates = isDuplicates ? ' Duplicates! ' : '';
-      const textConflicts = textChains + textForks + textDuplicates;
-      // Cycles warning, not possible to save
-      if (isCycles) {
+      const textConflicts = textCycles + textChains + textForks + textDuplicates;
+
+      // can be multiple conflicts. ask once to confirm.
+      if (isCycles || isChains || isForks || isDuplicates) {
         this.setState({
-          cyclesWarningModal: true,
-          modalTitle: 'Severe Error: Cycles!',
-          modalDescription: 'This dataset cannot be saved',
+          askModal: true,
+          modalTitle: textConflicts,
+          modalDescription: 'Are you sure to save this dataset?',
         });
-        // can be multiple conflicts. ask once to confirm.
+        // no conflict
       } else {
-        if (isChains || isForks || isDuplicates) {
-          this.setState({
-            askModal: true,
-            modalTitle: textConflicts,
-            modalDescription: 'Are you sure to save this dataset?',
-          });
-          // no conflict
-        } else {
-          this.props.handleRecordAdd(
-            this.state.dictionary_title,
-            this.state.domain,
-            this.state.range);
-          this.setState({
-            domain: '',
-            range: '',
-          });
-        }
+        this.props.handleRecordAdd(
+          this.state.dictionary_title,
+          this.state.domain,
+          this.state.range);
+        this.setState({
+          domain: '',
+          range: '',
+        });
       }
-      // autofocus to input 
-      this.recordInputRef.current.focus();
-      e.preventDefault();
-
     }
-
-
+    // autofocus to input 
+    this.recordInputRef.current.focus();
+    e.preventDefault();
   }
 
   handleDomainChange(newDomain) {
@@ -140,16 +127,6 @@ class RecordAdd extends Component {
   handleRangeChange(newRange) {
     this.setState({ range: newRange });
   }
-
-  onCancelCyclesWarning() {
-    this.setState({
-      cyclesWarningModal: false,
-      modalTitle: '',
-      modalDescription: '',
-      domain: '',
-      range: '',
-    });
-  };
 
   onConfirmAskModal() {
     this.props.handleRecordAdd(
@@ -196,12 +173,6 @@ class RecordAdd extends Component {
             <MdAdd />
           </button>
         </StyledInsertForm>
-        <ModalWarning
-          visible={this.state.cyclesWarningModal}
-          title={this.state.modalTitle}
-          description={this.state.modalDescription}
-          onCancel={this.onCancelCyclesWarning}
-        />
         <ModalAsk
           visible={this.state.askModal}
           title={this.state.modalTitle}

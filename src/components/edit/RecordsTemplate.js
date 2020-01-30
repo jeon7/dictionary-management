@@ -57,28 +57,14 @@ const IconsDescription = styled.div`
   padding-top: 10px;
 `;
 
-const DuplicatesWarning = styled.div`
+const WarningYello = styled.div`
   padding-left: 10px;
   display: flex;
   font-size: 1.5rem;
   color: #FBB622;
 `;
 
-const ForksWarning = styled.div`
-  padding-left: 10px;
-  display: flex;
-  font-size: 1.5rem;
-  color: #FBB622;
-`;
-
-const ChainWarning = styled.div`
-  padding-left: 10px;
-  display: flex;
-  font-size: 1.5rem;
-  color: #FB673A;
-`;
-
-const CyclesWarning = styled.div`
+const WarningOrange = styled.div`
   padding-left: 10px;
   display: flex;
   font-size: 1.5rem;
@@ -131,7 +117,7 @@ const RecordsTemplate = ({ selected_dictionary_title, children }) => {
       <Link to='/'><CloseBtn> Close </CloseBtn></Link>
       <IconsDescriptionBlock>
         <IconsDescription>
-          <label> View and Update Record </label>
+          <label> Update Record </label>
           <EditBtn> <MdModeEdit />  <div>,  records </div></EditBtn>
         </IconsDescription>
         <IconsDescription>
@@ -140,19 +126,19 @@ const RecordsTemplate = ({ selected_dictionary_title, children }) => {
         </IconsDescription>
         <IconsDescription>
           <label> Duplicates  </label>
-          <DuplicatesWarning> <MdContentCopy /> </DuplicatesWarning>
+          <WarningYello> <MdContentCopy /> </WarningYello>
         </IconsDescription>
         <IconsDescription>
           <label> Forks   </label>
-          <ForksWarning> <IoIosGitNetwork /> </ForksWarning>
+          <WarningYello> <IoIosGitNetwork /> </WarningYello>
         </IconsDescription>
         <IconsDescription>
           <label> Chains   </label>
-          <ChainWarning> <FiLink /> </ChainWarning>
+          <WarningOrange> <FiLink /> </WarningOrange>
         </IconsDescription>
         <IconsDescription>
           <label> Cycles   </label>
-          <CyclesWarning> <MdSync /> </CyclesWarning>
+          <WarningOrange> <MdSync /> </WarningOrange>
         </IconsDescription>
       </IconsDescriptionBlock>
 
