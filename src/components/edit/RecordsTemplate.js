@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { MdContentCopy, MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
+import { MdContentCopy, MdModeEdit, MdRemoveCircleOutline, MdSync } from 'react-icons/md';
 import { FiLink } from 'react-icons/fi';
 import { IoIosGitNetwork } from 'react-icons/io';
 
@@ -61,21 +61,28 @@ const DuplicatesWarning = styled.div`
   padding-left: 10px;
   display: flex;
   font-size: 1.5rem;
-  color: #f2d666;
+  color: #FBB622;
 `;
 
 const ForksWarning = styled.div`
   padding-left: 10px;
   display: flex;
   font-size: 1.5rem;
-  color: #f18e2f;
+  color: #FBB622;
 `;
 
 const ChainWarning = styled.div`
   padding-left: 10px;
   display: flex;
   font-size: 1.5rem;
-  color: #ec5538;
+  color: #FB673A;
+`;
+
+const CyclesWarning = styled.div`
+  padding-left: 10px;
+  display: flex;
+  font-size: 1.5rem;
+  color: #FB673A;
 `;
 
 const EditBtn = styled.div`
@@ -121,7 +128,7 @@ const RecordsTemplate = ({ selected_dictionary_title, children }) => {
       <Link to='/'><CloseBtn> Close </CloseBtn></Link>
       <IconsDescriptionBlock>
         <IconsDescription>
-          <label> Update Record </label>
+          <label> View and Update Record </label>
           <EditBtn> <MdModeEdit /> </EditBtn>
         </IconsDescription>
         <IconsDescription>
@@ -137,10 +144,15 @@ const RecordsTemplate = ({ selected_dictionary_title, children }) => {
           <ForksWarning> <IoIosGitNetwork /> </ForksWarning>
         </IconsDescription>
         <IconsDescription>
-          <label> Chain. Fix this. This can also cause Cycles. </label>
+          <label> Chains   </label>
           <ChainWarning> <FiLink /> </ChainWarning>
         </IconsDescription>
+        <IconsDescription>
+          <label> Cycles   </label>
+          <CyclesWarning> <MdSync /> </CyclesWarning>
+        </IconsDescription>
       </IconsDescriptionBlock>
+
     </RecordsTemplateBlock>
   );
 };
