@@ -45,6 +45,9 @@ const EditBtn = styled.div`
   display: flex;
   font-size: 1.5rem;
   color: #2d84ac;
+  div{
+    font-size: 1.2rem;
+  }
 `;
 
 const RemoveBtn = styled.div`
@@ -61,8 +64,8 @@ const DictionariesTemplate = ({ children }) => {
       <Content> {children} </Content>
       <IconsDescriptionBlock>
         <IconsDescription>
-          <label> Edit Dictionary </label>
-          <EditBtn> <MdModeEdit /> </EditBtn>
+          <label> View and Edit Dictionary </label>
+          <EditBtn> <MdModeEdit /> <div>,  dictionary title </div></EditBtn>
         </IconsDescription>
         <IconsDescription>
           <label> Delete Dictionary </label>

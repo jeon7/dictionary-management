@@ -70,8 +70,6 @@ class DictionaryCreate extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-
-
   handleChange(newValue) {
     this.setState({ value: newValue });
   }

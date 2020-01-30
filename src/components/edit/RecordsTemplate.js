@@ -90,6 +90,9 @@ const EditBtn = styled.div`
   display: flex;
   font-size: 1.5rem;
   color: #2d84ac;
+  div{
+    font-size: 1.2rem;
+  }
 `;
 
 const RemoveBtn = styled.div`
@@ -129,7 +132,7 @@ const RecordsTemplate = ({ selected_dictionary_title, children }) => {
       <IconsDescriptionBlock>
         <IconsDescription>
           <label> View and Update Record </label>
-          <EditBtn> <MdModeEdit /> </EditBtn>
+          <EditBtn> <MdModeEdit />  <div>,  records </div></EditBtn>
         </IconsDescription>
         <IconsDescription>
           <label> Delete Record </label>
