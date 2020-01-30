@@ -66,7 +66,7 @@ const ModalRecordUpdate = ({
 ModalRecordUpdate.propTypes = {
   visible: PropTypes.bool.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  onCancle: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default ModalRecordUpdate;

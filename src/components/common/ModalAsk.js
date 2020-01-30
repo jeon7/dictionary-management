@@ -70,7 +70,7 @@ ModalAsk.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  onCancle: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default ModalAsk;

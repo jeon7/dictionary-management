@@ -70,14 +70,14 @@ class RecordAdd extends Component {
       modalDescription: '',
     };
 
-    // for autofocus
-    this.recordInputRef = React.createRef();
-
     this.recordAdd = this.recordAdd.bind(this);
     this.handleDomainChange = this.handleDomainChange.bind(this);
     this.handleRangeChange = this.handleRangeChange.bind(this);
     this.onCancelAskModal = this.onCancelAskModal.bind(this);
     this.onConfirmAskModal = this.onConfirmAskModal.bind(this);
+
+    // for autofocus
+    this.recordInputRef = React.createRef();
   }
 
   // for autofocus
@@ -145,6 +145,8 @@ class RecordAdd extends Component {
       domain: '',
       range: '',
     });
+    // autofocus to input 
+    this.recordInputRef.current.focus();
   }
 
   onCancelAskModal() {
@@ -155,6 +157,8 @@ class RecordAdd extends Component {
       domain: '',
       range: '',
     });
+    // autofocus to input 
+    this.recordInputRef.current.focus();
   }
 
   render() {
