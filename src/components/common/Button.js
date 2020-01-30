@@ -1,6 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 const buttonStyle = css`
   border: none;
@@ -11,7 +11,6 @@ const buttonStyle = css`
   color: white;
   outline: none;
   cursor: pointer;
-
   background: #343a40;
 
   &:focus {

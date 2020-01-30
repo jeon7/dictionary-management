@@ -25,17 +25,16 @@ const Content = styled.div`
   background: white;
 `;
 
-const IconsDescriptionBlock = styled.div`
+const IconDescriptionBlock = styled.div`
   padding-bottom: 50px;
 `;
 
-const IconsDescription = styled.div`
+const IconDescription = styled.div`
   width: 480px;
   margin-right: 10px;
   padding-right: 10px;
   display: flex;
-  justify-content: flex-end; 
-  
+  justify-content: flex-end;  
   margin-top: 10px;
   padding-top: 10px;
 `;
@@ -45,6 +44,7 @@ const EditBtn = styled.div`
   display: flex;
   font-size: 1.5rem;
   color: #2d84ac;
+  
   div{
     font-size: 1.2rem;
   }
@@ -62,16 +62,16 @@ const DictionariesTemplate = ({ children }) => {
     <DictionariesTemplateBlock>
       <Title> Dictionaries </Title>
       <Content> {children} </Content>
-      <IconsDescriptionBlock>
-        <IconsDescription>
+      <IconDescriptionBlock>
+        <IconDescription>
           <label> View and Edit Dictionary </label>
           <EditBtn> <MdModeEdit /> <div>,  dictionary title </div></EditBtn>
-        </IconsDescription>
-        <IconsDescription>
+        </IconDescription>
+        <IconDescription>
           <label> Delete Dictionary </label>
           <RemoveBtn> <MdRemoveCircleOutline /> </RemoveBtn>
-        </IconsDescription>
-      </IconsDescriptionBlock>
+        </IconDescription>
+      </IconDescriptionBlock>
     </DictionariesTemplateBlock>
   );
 };

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
-import { PropTypes } from 'prop-types';
+import { MdAdd } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 const StyledInsertForm = styled.form`
   display: flex;
   background: #495057;
-
   border-color: #3B545B;
   border-style: solid;
   border-width: 1px;

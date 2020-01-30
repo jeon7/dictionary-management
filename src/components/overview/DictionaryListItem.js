@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { MdModeEdit, MdRemoveCircleOutline } from 'react-icons/md';
+import PropTypes from 'prop-types';
 import ModalDictionaryDelete from './ModalDictionaryDelete';
 
 const DictionaryListItemBlock = styled.div`
@@ -93,8 +93,8 @@ const DictionaryListItem = ({ title, id, handleDictionaryDelete }) => {
 };
 
 DictionaryListItem.propTypes = {
-  title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
   handleDictionaryDelete: PropTypes.func.isRequired,
 };
 

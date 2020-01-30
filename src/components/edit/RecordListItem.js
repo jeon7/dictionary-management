@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import { MdContentCopy, MdModeEdit, MdRemoveCircleOutline, MdSync } from 'react-icons/md';
 import { FiLink } from 'react-icons/fi';
 import { IoIosGitNetwork } from 'react-icons/io';
+import PropTypes from 'prop-types';
 import ModalRecordUpdate from './ModalRecordUpdate';
 
 const RecordListItemBlock = styled.div`
@@ -111,7 +111,10 @@ const StyledInsert = styled.div`
   }
 `;
 
-const RecordListItem = ({ id, domain, range,
+const RecordListItem = ({
+  id,
+  domain,
+  range,
   selected_dictionary_title,
   handleRecordUpdate,
   handleRecordDelete,
@@ -162,7 +165,7 @@ const RecordListItem = ({ id, domain, range,
     setRangeUpdated('');
   };
 
-  // for record update
+  // for record input field connect
   const onChangeDomain = e => setDomainUpdated(e.target.value);
   const onChangeRange = e => setRangeUpdated(e.target.value);
 
@@ -212,7 +215,6 @@ const RecordListItem = ({ id, domain, range,
 
 RecordListItem.propTypes = {
   id: PropTypes.number.isRequired,
-  dictionary_title: PropTypes.string.isRequired,
   domain: PropTypes.string.isRequired,
   range: PropTypes.string.isRequired,
   selected_dictionary_title: PropTypes.string.isRequired,

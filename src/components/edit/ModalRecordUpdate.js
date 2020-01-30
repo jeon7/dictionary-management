@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Button from '../common/Button';
 
 const Fullscreen = styled.div`
@@ -14,6 +15,7 @@ const Fullscreen = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const ModalBlock = styled.div`
   width: 320px;
   background: white;
@@ -45,25 +47,26 @@ const ModalRecordUpdate = ({
   onConfirm,
   onCancel,
   children,
-  title = 'Record Update',
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
-
 }) => {
-
   if (!visible) return null;
   return (
     <Fullscreen>
       <ModalBlock>
-        <h2>{title}</h2>
+        <h2>Record Update</h2>
         {children}
         <div className="buttons">
-          <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
-          <StyledButton cyan onClick={onConfirm}>{confirmText}</StyledButton>
+          <StyledButton onClick={onCancel}>Cancel</StyledButton>
+          <StyledButton cyan onClick={onConfirm}>Confirm</StyledButton>
         </div>
       </ModalBlock>
     </Fullscreen>
   );
+};
+
+ModalRecordUpdate.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  onCancle: PropTypes.func.isRequired,
 };
 
 export default ModalRecordUpdate;

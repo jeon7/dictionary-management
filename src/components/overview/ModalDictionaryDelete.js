@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ModalAsk from '../common/ModalAsk';
 
 const ModalDictionaryDelete = ({
@@ -16,6 +17,12 @@ const ModalDictionaryDelete = ({
       onCancel={onCancel}
     />
   );
+};
+
+ModalDictionaryDelete.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  onCancle: PropTypes.func.isRequired,
 };
 
 export default ModalDictionaryDelete;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
-import { PropTypes } from 'prop-types';
+import { MdAdd } from 'react-icons/md';
+import PropTypes from 'prop-types';
 import ModalAsk from '../common/ModalAsk';
 
 const StyledInsertForm = styled.form`
@@ -17,7 +17,8 @@ const StyledInsertForm = styled.form`
     line-height: 1.5;
     color: white;
     border: 1px solid black;
-    
+    flex: 1;
+
     :focus {
     border-color: #FA5246;
     border-style: solid;
@@ -28,7 +29,6 @@ const StyledInsertForm = styled.form`
     &::placeholder {
       color: #dee2e6;
     }
-    flex: 1;
   }
 
   button{
@@ -69,7 +69,10 @@ class RecordAdd extends Component {
       modalTitle: '',
       modalDescription: '',
     };
+
+    // for autofocus
     this.recordInputRef = React.createRef();
+
     this.recordAdd = this.recordAdd.bind(this);
     this.handleDomainChange = this.handleDomainChange.bind(this);
     this.handleRangeChange = this.handleRangeChange.bind(this);
@@ -77,6 +80,7 @@ class RecordAdd extends Component {
     this.onConfirmAskModal = this.onConfirmAskModal.bind(this);
   }
 
+  // for autofocus
   componentDidMount() {
     this.recordInputRef.current.focus();
   }
@@ -90,13 +94,14 @@ class RecordAdd extends Component {
       const isCycles = this.props.checkCycles(this.state.domain, this.state.range, this.state.dictionary_title);
       const isChains = this.props.checkChains(this.state.domain, this.state.range, this.state.dictionary_title);
 
-      const textCycles = isCycles ? ' Cycles (Sever Error) !' : '';
+      // generate modal title
+      const textCycles = isCycles ? ' Cycles (Severe Error) !' : '';
       const textChains = isChains ? ' Chains! ' : '';
       const textForks = isForks ? ' Forks! ' : '';
       const textDuplicates = isDuplicates ? ' Duplicates! ' : '';
       const textConflicts = textCycles + textChains + textForks + textDuplicates;
 
-      // can be multiple conflicts. ask once to confirm.
+      // can be multiple conflicts
       if (isCycles || isChains || isForks || isDuplicates) {
         this.setState({
           askModal: true,
@@ -169,9 +174,7 @@ class RecordAdd extends Component {
             value={this.state.range}
             onChange={(e) => this.handleRangeChange(e.target.value)}
           />
-          <button type="submit">
-            <MdAdd />
-          </button>
+          <button type="submit"><MdAdd /></button>
         </StyledInsertForm>
         <ModalAsk
           visible={this.state.askModal}
@@ -186,6 +189,7 @@ class RecordAdd extends Component {
 }
 
 RecordAdd.propTypes = {
+  selected_dictionary_title: PropTypes.string.isRequired,
   handleRecordAdd: PropTypes.func.isRequired,
   checkDuplicatesAddRecord: PropTypes.func.isRequired,
   checkForks: PropTypes.func.isRequired,

@@ -44,7 +44,8 @@ class Dictionaries extends Component {
       .where("dictionary_title").anyOf(dictionaryTitleDelete)
       .delete()
       .then(() => {
-        console.log('check records table');
+        // test
+        console.log('check records table, if the records from this dictionary are deleted');
       });
 
     // delete dictionary

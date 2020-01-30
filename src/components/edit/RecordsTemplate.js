@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { MdContentCopy, MdModeEdit, MdRemoveCircleOutline, MdSync } from 'react-icons/md';
 import { FiLink } from 'react-icons/fi';
 import { IoIosGitNetwork } from 'react-icons/io';
+import PropTypes from 'prop-types';
+import Button from "../common/Button";
 
 const RecordsTemplateBlock = styled.div`
   width: 1000px;
@@ -52,7 +53,6 @@ const IconsDescription = styled.div`
   padding-right: 10px;
   display: flex;
   justify-content: flex-end; 
-  
   margin-top: 10px;
   padding-top: 10px;
 `;
@@ -88,21 +88,14 @@ const RemoveBtn = styled.div`
   color: red;
 `;
 
-const CloseBtn = styled.button`
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 10px 500px 10px 465px;
-  padding: 0.25rem 1rem;
-  color: white;
-  outline: none;
-  cursor: pointer;
+const CloseBlock = styled.div`
+  margin-top: 1.25rem;
+`;
 
-  background: #22b8cf;
-  &:hover {
-    background: skyblue};
-  }
+const CloseBtn = styled(Button)`
+  font-size: 1.25rem;
+  text-decoration: none;
+  margin-left: 460px;
 `;
 
 const RecordsTemplate = ({ selected_dictionary_title, children }) => {
@@ -114,7 +107,7 @@ const RecordsTemplate = ({ selected_dictionary_title, children }) => {
         <h2>Range</h2>
       </Attribute>
       <Content> {children} </Content>
-      <Link to='/'><CloseBtn> Close </CloseBtn></Link>
+      <CloseBlock><CloseBtn to='/'>Close</CloseBtn></CloseBlock>
       <IconsDescriptionBlock>
         <IconsDescription>
           <label> Update Record </label>
@@ -141,9 +134,12 @@ const RecordsTemplate = ({ selected_dictionary_title, children }) => {
           <WarningOrange> <MdSync /> </WarningOrange>
         </IconsDescription>
       </IconsDescriptionBlock>
-
     </RecordsTemplateBlock>
   );
+};
+
+RecordsTemplate.propTypes = {
+  selected_dictionary_title: PropTypes.string.isRequired,
 };
 
 export default RecordsTemplate;

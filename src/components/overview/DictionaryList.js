@@ -1,11 +1,11 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import DictionaryListItem from './DictionaryListItem';
 
 const DictionaryListBlock = styled.div`
   min-height: 320px;
-  max-height: 513px;
+  max-height: 1500px;
   overflow-y: auto;
 `;
 
@@ -24,8 +24,8 @@ const DictionaryList = ({ dictionaries, handleDictionaryDelete }) => {
 
 DictionaryList.propTypes = {
   dictionaries: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
   })),
   handleDictionaryDelete: PropTypes.func.isRequired,
 };

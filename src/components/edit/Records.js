@@ -71,6 +71,7 @@ class Records extends Component {
       });
   }
 
+  // TODO refactor repeated code
   checkDuplicatesAddRecord(newDomain, newRange, selected_dictionary_title) {
     // records in same dictionary
     const selected_records = this.state.records.filter((record) =>
@@ -91,6 +92,7 @@ class Records extends Component {
     }
   }
 
+  // TODO refactor repeated code
   checkDuplicatesMarkRecord(newDomain, newRange, selected_dictionary_title) {
     // records in same dictionary
     const selected_records = this.state.records.filter((record) =>
@@ -196,7 +198,6 @@ class Records extends Component {
       <>
         <RecordsTemplate selected_dictionary_title={selected_dictionary_title}>
           <RecordAdd
-            records={this.state.records}
             selected_dictionary_title={selected_dictionary_title}
             handleRecordAdd={this.handleRecordAdd}
             checkDuplicatesAddRecord={this.checkDuplicatesAddRecord}

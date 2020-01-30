@@ -1,15 +1,16 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import RecordListItem from './RecordListItem';
 
 const RecordListBlock = styled.div`
   min-height: 320px;
-  max-height: 513px;
+  max-height: 2000px;
   overflow-y: auto;
 `;
 
-const RecordList = ({ records,
+const RecordList = ({
+  records,
   selected_dictionary_title,
   handleRecordUpdate,
   handleRecordDelete,
@@ -18,7 +19,6 @@ const RecordList = ({ records,
   checkCycles,
   checkChains }) => {
   let dictionaryRecords = records.filter(record => record.dictionary_title === selected_dictionary_title);
-
   return (
     <RecordListBlock>
       {dictionaryRecords.map((record) =>

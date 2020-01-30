@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Button from './Button';
 
 const Fullscreen = styled.div`
@@ -49,9 +50,7 @@ const ModalAsk = ({
   onConfirm,
   onCancel,
 }) => {
-
   if (!visible) return null;
-
   return (
     <Fullscreen>
       <ModalBlock>
@@ -64,6 +63,14 @@ const ModalAsk = ({
       </ModalBlock>
     </Fullscreen>
   );
+};
+
+ModalAsk.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  onCancle: PropTypes.func.isRequired,
 };
 
 export default ModalAsk;
