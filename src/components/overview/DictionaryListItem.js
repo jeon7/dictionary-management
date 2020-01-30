@@ -95,7 +95,7 @@ const DictionaryListItem = ({ title, id, handleDictionaryDelete }) => {
 DictionaryListItem.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  handleDictionaryDelete: PropTypes.func.isRequired
+  handleDictionaryDelete: PropTypes.func.isRequired,
 };
 
 export default DictionaryListItem;

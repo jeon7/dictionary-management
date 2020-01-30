@@ -65,15 +65,14 @@ const StyledInsertForm = styled.form`
 class DictionaryCreate extends Component {
   constructor() {
     super();
+
+    console.log('dictionary create constructor');
     this.state = { value: '' };
-    this.dictionaryInputRef = React.createRef();
     this.createDictionary = this.createDictionary.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    this.dictionaryInputRef.current.focus();
-  }
+
 
   handleChange(newValue) {
     this.setState({ value: newValue });
@@ -85,7 +84,6 @@ class DictionaryCreate extends Component {
       this.props.handleDictionaryCreate(this.state.value);
       this.setState({ value: '' });
     }
-    this.dictionaryInputRef.current.focus();
     e.preventDefault();
   }
 
@@ -97,7 +95,7 @@ class DictionaryCreate extends Component {
           placeholder="enter the name of dictionary to create."
           value={this.state.value}
           onChange={(e) => this.handleChange(e.target.value)}
-          ref={this.dictionaryInputRef}
+          autoFocus={true}
         />
         <button type="submit">
           <MdAdd />

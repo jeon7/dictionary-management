@@ -7,7 +7,9 @@ import DictionaryList from './DictionaryList';
 class Dictionaries extends Component {
   constructor() {
     super();
-    this.state = { dictionaries: [] };
+    this.state = {
+      dictionaries: [],
+    };
     this.handleDictionaryCreate = this.handleDictionaryCreate.bind(this);
     this.handleDictionaryDelete = this.handleDictionaryDelete.bind(this);
   }
@@ -57,7 +59,9 @@ class Dictionaries extends Component {
   render() {
     return (
       <DictionariesTemplate>
-        <DictionaryCreate handleDictionaryCreate={this.handleDictionaryCreate} />
+        <DictionaryCreate
+          handleDictionaryCreate={this.handleDictionaryCreate}
+        />
         <DictionaryList
           dictionaries={this.state.dictionaries}
           handleDictionaryDelete={this.handleDictionaryDelete}

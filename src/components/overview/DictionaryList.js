@@ -27,7 +27,7 @@ DictionaryList.propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
   })),
-  handleDictionaryDelete: PropTypes.func.isRequired
+  handleDictionaryDelete: PropTypes.func.isRequired,
 };
 
 export default DictionaryList;
