@@ -52,11 +52,12 @@ class Records extends Component {
       .update(id, { domain, range })
       .then(() => {
         const recordToUpdate = this.state.records.find((record) => record.id === id);
-        // TODO sort by id 
-        const newList = [
+        let newList = [
           ...this.state.records.filter((record) => record.id !== id),
           Object.assign({}, recordToUpdate, { domain, range })
         ];
+        // sort by id 
+        newList.sort((a, b) => a['id'] - b['id']);
         this.setState({ records: newList });
       })
   }

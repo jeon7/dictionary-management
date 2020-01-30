@@ -65,8 +65,6 @@ const StyledInsertForm = styled.form`
 class DictionaryCreate extends Component {
   constructor() {
     super();
-
-    console.log('dictionary create constructor');
     this.state = { value: '' };
     this.createDictionary = this.createDictionary.bind(this);
     this.handleChange = this.handleChange.bind(this);
