@@ -1,4 +1,4 @@
-# Dictionary Management
+# Dictionary Management v1.1.2
 
 
 ## How to start the app
