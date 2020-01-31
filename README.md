@@ -105,7 +105,7 @@ To achieve simpler code, one table for dictionary list, one table for all record
 
 ## Demo 
 
-**These are gif files. In order to view the actions from the begininng, click the image**
+**These are gif files. In order to view the actions from the begininng, click the image.**
 
 ### Dictionaries Overview ('/')
 
