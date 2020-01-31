@@ -50,7 +50,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 [Dictionary Management](http://dictionary-management.herokuapp.com/)
 
-Chrome Browser, Firefox or Edge are recommended.
+Chrome, Firefox or Edge are recommended.
 
 Data is saved in your local browser. If you switch between browsers, your data differs.
 
