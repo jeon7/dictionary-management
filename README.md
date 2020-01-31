@@ -61,8 +61,6 @@ Data is saved in your local browser. If you switch between browsers, your data d
 
 - Style: styled-components
 
-- Build tool: create-react-app
-
 - Dependency management: yarn
 
 - Deploy: Heroku
