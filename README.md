@@ -50,6 +50,8 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 http://dictionary-management.herokuapp.com/ 
 
+Chrome Browser recommended to use
+
 
 ## Main Technologies:
 
