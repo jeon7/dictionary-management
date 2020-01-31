@@ -1,10 +1,12 @@
 # Dictionary Management
 
+
 ## How to start the app
 
 1. Clone or Download
 2. yarn install 
 3. yarn start
+
 
 ## Available Scripts
 
@@ -43,9 +45,8 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## URL
 
-https://dictionary-management.herokuapp.com/
+## URL
 
 http://dictionary-management.herokuapp.com/ 
 
@@ -66,6 +67,7 @@ http://dictionary-management.herokuapp.com/
     - react
     - dexie (to use indexeddb - local storage)
 
+
 ## Dependencies
 
 Apache License v2.0: 
@@ -84,15 +86,18 @@ MIT License:
         "styled-components": "^5.0.0"
     }
 
+
 ## Package Diagram
 
 ![dic_mgmt_package_diagram_v1 1 2](https://user-images.githubusercontent.com/49291474/73501330-d20e6b00-43c5-11ea-9240-b2b0a2a5d0e2.png)
+
 
 ## Database Model
 
 ![dic_mgmt_db_model](https://user-images.githubusercontent.com/49291474/73145517-543d1d80-40ae-11ea-84e6-b330effec311.png)
 
 To achieve simpler code, one table for dictionary list, one table for all records from all dictionaries.
+
 
 ## Demo 
 
